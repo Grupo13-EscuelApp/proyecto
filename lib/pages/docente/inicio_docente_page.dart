@@ -186,6 +186,21 @@ class InicioDocente extends StatelessWidget {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            // Acción para el botón de chat
+          },
+          backgroundColor: Colors.green, // Color de fondo verde para el botón de chat
+          icon: Icon(Icons.chat), // Icono de chat
+          label: Text('Chat'), // Texto "Chat"
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, // Posición del botón flotante
+        floatingActionButtonAnimator: FloatingActionButtonAnimator.noAnimation, // Animación del botón flotante
+        bottomNavigationBar: BottomAppBar(
+          elevation: 0, // Sin sombra
+          color: Colors.transparent, // Fondo transparente
+          child: SizedBox(height: 20), // Sin contenido
+        ),
       ),
     );
   }
