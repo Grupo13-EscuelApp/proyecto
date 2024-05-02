@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
 import 'package:proyecto_inicio/pages/docente/inicio_docente_page.dart';
+import 'package:proyecto_inicio/pages/docente/menu_docente_alumno_page.dart';
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
 import 'package:proyecto_inicio/pages/menu/informacion_page.dart';
-import 'package:proyecto_inicio/pages/padres/menu_alumno_padres_page.dart';
 import '../../main.dart';
 
 void main() {
@@ -140,12 +140,16 @@ class P2_Docente extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MenuPadres()),
+                      MaterialPageRoute(builder: (context) => MenuDocentes(
+                        nombreAlumno: 'Alumno 1',
+                        apellidoAlumno: 'Apellido 1',
+                        fotoUrlAlumno: 'https://via.placeholder.com/108x105',
+                      )),
                     );
                   },
                   child: Alumno(
-                    nombre: 'Nombre del Alumno 1',
-                    apellido: 'Apellido del Alumno 1',
+                    nombre: 'Alumno 1',
+                    apellido: 'Apellido 1',
                     clase: 'P2',
                     fotoUrl: 'https://via.placeholder.com/108x105',
                   ),
@@ -154,12 +158,16 @@ class P2_Docente extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MenuPadres()),
+                      MaterialPageRoute(builder: (context) => MenuDocentes(
+                        nombreAlumno: 'Alumno 2',
+                        apellidoAlumno: 'Apellido 2',
+                        fotoUrlAlumno: 'https://via.placeholder.com/108x105',
+                      )),
                     );
                   },
                   child: Alumno(
-                    nombre: 'Nombre del Alumno 2',
-                    apellido: 'Apellido del Alumno 2',
+                    nombre: 'Alumno 2',
+                    apellido: 'Apellido 2',
                     clase: 'P2',
                     fotoUrl: 'https://via.placeholder.com/108x105',
                   ),
@@ -168,12 +176,16 @@ class P2_Docente extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MenuPadres()),
+                      MaterialPageRoute(builder: (context) => MenuDocentes(
+                        nombreAlumno: 'Alumno 3',
+                        apellidoAlumno: 'Apellido 3',
+                        fotoUrlAlumno: 'https://via.placeholder.com/108x105',
+                      )),
                     );
                   },
                   child: Alumno(
-                    nombre: 'Nombre del Alumno 3',
-                    apellido: 'Apellido del Alumno 3',
+                    nombre: 'Alumno 3',
+                    apellido: 'Apellido 3',
                     clase: 'P2',
                     fotoUrl: 'https://via.placeholder.com/108x105',
                   ),
@@ -182,45 +194,21 @@ class P2_Docente extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MenuPadres()),
+                      MaterialPageRoute(builder: (context) => MenuDocentes(
+                        nombreAlumno: 'Alumno 4',
+                        apellidoAlumno: 'Apellido 4',
+                        fotoUrlAlumno: 'https://via.placeholder.com/108x105',
+                      )),
                     );
                   },
                   child: Alumno(
-                    nombre: 'Nombre del Alumno 4',
-                    apellido: 'Apellido del Alumno 4',
+                    nombre: 'Alumno 4',
+                    apellido: 'Apellido 4',
                     clase: 'P2',
                     fotoUrl: 'https://via.placeholder.com/108x105',
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MenuPadres()),
-                    );
-                  },
-                  child: Alumno(
-                    nombre: 'Nombre del Alumno 5',
-                    apellido: 'Apellido del Alumno 5',
-                    clase: 'P2',
-                    fotoUrl: 'https://via.placeholder.com/108x105',
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MenuPadres()),
-                    );
-                  },
-                  child: Alumno(
-                    nombre: 'Nombre del Alumno 6',
-                    apellido: 'Apellido del Alumno 6',
-                    clase: 'P2',
-                    fotoUrl: 'https://via.placeholder.com/108x105',
-                  ),
-                ),
-                // Agrega más Alumnos según sea necesario
+
               ],
             ),
           ),
@@ -310,7 +298,11 @@ class Alumno extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MenuPadres()),
+                    MaterialPageRoute(builder: (context) => MenuDocentes(
+                      nombreAlumno: nombre,
+                      apellidoAlumno: apellido,
+                      fotoUrlAlumno: fotoUrl,
+                    )),
                   );
                 },
                 child: Container(

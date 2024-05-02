@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUsuPadre_page.dart';
+import 'package:proyecto_inicio/pages/docente/menu_docente_alumno_page.dart';
 import 'package:proyecto_inicio/pages/docente/p0_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/p1_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/p2_docente_page.dart';
+import 'package:proyecto_inicio/pages/inicio_alumno_padres_page.dart';
 import 'package:proyecto_inicio/pages/inicio_login.dart';
 import 'package:proyecto_inicio/pages/login1_page.dart';
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
@@ -16,8 +18,7 @@ import 'package:proyecto_inicio/pages/padres/descanso_padres_page.dart';
 import 'package:proyecto_inicio/pages/padres/menu_alumno_padres_page.dart';
 import 'package:proyecto_inicio/pages/padres/reponer_padres_page.dart';
 import 'package:proyecto_inicio/pages/recuperar_page.dart';
-import 'package:proyecto_inicio/pages/registro_page.dart'; // Importa la página login1_page.dart
-import 'package:proyecto_inicio/pages/inicio_alumno_padres_page.dart';
+import 'package:proyecto_inicio/pages/registro_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,12 +51,12 @@ class MyApp extends StatelessWidget {
         '/P0_Docente': (context) => P0_Docente(), // Ruta para la página P0_Docente()
         '/P1_Docente': (context) => P1_Docente(), // Ruta para la página P1_Docente()
         '/P2_Docente': (context) => P2_Docente(), // Ruta para la página P2_Docente()
-
+        '/MenuDocentes': (context) => MenuDocentes(
+          nombreAlumno: 'Nombre del alumno seleccionado',
+          apellidoAlumno: 'Apellido del alumno seleccionado',
+          fotoUrlAlumno: 'URL de la foto del alumno seleccionado',
+        ), // Ruta para la página MenuDocentes()
       },
     );
   }
 }
-
-
-
-
