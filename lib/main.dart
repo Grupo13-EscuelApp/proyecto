@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUsuPadre_page.dart';
+import 'package:proyecto_inicio/pages/docente/deposicion_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/menu_docente_alumno_page.dart';
 import 'package:proyecto_inicio/pages/docente/p0_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/p1_docente_page.dart';
@@ -56,7 +57,14 @@ class MyApp extends StatelessWidget {
           apellidoAlumno: 'Apellido del alumno seleccionado',
           fotoUrlAlumno: 'URL de la foto del alumno seleccionado',
         ), // Ruta para la página MenuDocentes()
+        '/DepoDoc': (context) => DepoDoc(
+          nombreAlumno: 'Nombre del alumno',
+          apellidoAlumno: 'Apellido del alumno',
+          fotoUrlAlumno: 'https://via.placeholder.com/108x105',
+
+        ), // Ruta para la pagina DepoDoc()
       },
+
     );
   }
 }

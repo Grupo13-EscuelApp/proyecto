@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_inicio/pages/docente/deposicion_docente_page.dart';
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
 import 'package:proyecto_inicio/pages/padres/alimentacion_padres_page.dart';
@@ -175,8 +176,16 @@ class MenuDocentes extends StatelessWidget {
         if (title == 'Deposiciones') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => DepoPadres()),
+            MaterialPageRoute(
+              builder: (context) => DepoDoc(
+                nombreAlumno: nombreAlumno,
+                apellidoAlumno: apellidoAlumno,
+                fotoUrlAlumno: fotoUrlAlumno,
+              ),
+            ),
           );
+
+
         } else if(title == 'Alimentación') {
           Navigator.push(
             context,

@@ -126,90 +126,92 @@ class InicioDocente extends StatelessWidget {
             ],
           ),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 0), // Espacio desde la parte superior
-              Text(
-                'Selecciona una clase', // Texto principal
-                style: TextStyle(
-                  fontSize: 24.0, // Tamaño del texto más grande
-                  fontWeight: FontWeight.bold, // Peso de la fuente en negrita
-                  color: Colors.black, // Color del texto
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 0), // Espacio desde la parte superior
+                Text(
+                  'Selecciona una clase', // Texto principal
+                  style: TextStyle(
+                    fontSize: 24.0, // Tamaño del texto más grande
+                    fontWeight: FontWeight.bold, // Peso de la fuente en negrita
+                    color: Colors.black, // Color del texto
+                  ),
                 ),
-              ),
-              SizedBox(height: 50), // Espacio entre el texto y el primer botón
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => P0_Docente()),
-                  );
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a naranja
-                ),
-                child: SizedBox(
-                  width: 100, // Ancho del botón
-                  child: Center(
-                    child: Text(
-                      'P0', // Texto del botón
-                      style: TextStyle(
-                        color: Colors.black, // Cambia el color del texto a negro
+                SizedBox(height: 50), // Espacio entre el texto y el primer botón
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => P0_Docente()),
+                    );
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a naranja
+                  ),
+                  child: SizedBox(
+                    width: 100, // Ancho del botón
+                    child: Center(
+                      child: Text(
+                        'P0', // Texto del botón
+                        style: TextStyle(
+                          color: Colors.black, // Cambia el color del texto a negro
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 40), // Espacio entre el primer y segundo botón
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => P1_Docente()),
-                  );
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a verde
-                ),
-                child: SizedBox(
-                  width: 100, // Ancho del botón
-                  child: Center(
-                    child: Text(
-                      'P1', // Texto del botón
-                      style: TextStyle(
-                        color: Colors.black, // Cambia el color del texto a negro
+                SizedBox(height: 40), // Espacio entre el primer y segundo botón
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => P1_Docente()),
+                    );
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a verde
+                  ),
+                  child: SizedBox(
+                    width: 100, // Ancho del botón
+                    child: Center(
+                      child: Text(
+                        'P1', // Texto del botón
+                        style: TextStyle(
+                          color: Colors.black, // Cambia el color del texto a negro
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 40), // Espacio entre el segundo y tercer botón
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => P2_Docente()),
-                  );
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a verde
-                ),
-                child: SizedBox(
-                  width: 100, // Ancho del botón
-                  child: Center(
-                    child: Text(
-                      'P2', // Texto del botón
-                      style: TextStyle(
-                        color: Colors.black, // Cambia el color del texto a negro
+                SizedBox(height: 40), // Espacio entre el segundo y tercer botón
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => P2_Docente()),
+                    );
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a verde
+                  ),
+                  child: SizedBox(
+                    width: 100, // Ancho del botón
+                    child: Center(
+                      child: Text(
+                        'P2', // Texto del botón
+                        style: TextStyle(
+                          color: Colors.black, // Cambia el color del texto a negro
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 200), // Espacio desde la parte inferior
-            ],
+                SizedBox(height: 200), // Espacio desde la parte inferior
+              ],
+            ),
           ),
         ),
         floatingActionButton: Container(
