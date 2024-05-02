@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/docente/inicio_docente_page.dart';
+import 'package:proyecto_inicio/pages/inicio_alumno_padres_page.dart';
 import 'package:proyecto_inicio/pages/recuperar_page.dart';
-
-import 'inicio_alumno_padres_page.dart'; // Importa la página InicioAlumnoPadresPage
 
 
 class Login1 extends StatelessWidget {
@@ -22,7 +21,7 @@ class Login1 extends StatelessWidget {
           children: [
             Positioned.fill(
               child: Image.asset(
-                'assets/image/fondo1.png', // Ruta de la imagen de fondo
+                'assets/image/fondo1.png',
                 fit: BoxFit.cover,
               ),
             ),
@@ -34,14 +33,14 @@ class Login1 extends StatelessWidget {
             Positioned(
               left: 0,
               right: 0,
-              top: 100, // Ajusta la posición vertical del texto
+              top: 100,
               child: Center(
                 child: Text(
-                  'EscuelApp', // Texto sobre la imagen
+                  'EscuelApp',
                   style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // Color blanco para el texto
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -53,7 +52,7 @@ class Login1 extends StatelessWidget {
               child: Container(
                 height: 600,
                 decoration: BoxDecoration(
-                  color: Colors.white, // Color de fondo del contenedor
+                  color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
@@ -69,7 +68,7 @@ class Login1 extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14.0,
-                        color: Colors.black, // Cambia el color de texto a negro
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -77,16 +76,16 @@ class Login1 extends StatelessWidget {
                     TextField(
                       controller: emailController,
                       decoration: InputDecoration(
-                        hintText: 'E-mail', // Texto sugerido para la primera caja de texto
-                        hintStyle: TextStyle(color: Colors.grey[400]), // Cambia el color del texto sugerido a gris claro
+                        hintText: 'E-mail',
+                        hintStyle: TextStyle(color: Colors.grey[400]),
                       ),
                     ),
                     SizedBox(height: 24.0),
                     TextField(
                       controller: passwordController,
                       decoration: InputDecoration(
-                        hintText: 'Contraseña', // Texto sugerido para la segunda caja de texto
-                        hintStyle: TextStyle(color: Colors.grey[400]), // Cambia el color del texto sugerido a gris claro
+                        hintText: 'Contraseña',
+                        hintStyle: TextStyle(color: Colors.grey[400]),
                       ),
                       obscureText: true,
                     ),
@@ -96,18 +95,17 @@ class Login1 extends StatelessWidget {
                         String email = emailController.text;
                         String password = passwordController.text;
 
-                        if (email.isEmpty) {
-                          // Si el campo de correo electrónico está vacío, muestra un diálogo
+                        if (email.isEmpty || password.isEmpty) {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: Text("Error"),
-                                content: Text("El campo de correo electrónico no puede estar vacío."),
+                                content: Text("El campo de correo electrónico y contraseña no pueden estar vacíos."),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.pop(context); // Cierra el diálogo
+                                      Navigator.pop(context);
                                     },
                                     child: Text("OK"),
                                   ),
@@ -115,37 +113,45 @@ class Login1 extends StatelessWidget {
                               );
                             },
                           );
-                        } else if (email == "docente" && password.isEmpty) {
-                          // Si el correo electrónico es "docente" y la contraseña está vacía, navega a la ventana InicioDocente
+                        } else if (email == "docente") {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => InicioDocente()),
                           );
-                        } else if (email == "padre" && password.isEmpty) {
-                          // Si el correo electrónico es "padre" y la contraseña está vacía, navega a la ventana InicioPadres
+                        } else if (email == "padre") {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => InicioAlumno()),
                           );
                         } else {
-                          // En otros casos, puedes agregar alguna lógica adicional o mostrar un mensaje de error
-                          // Por ejemplo, podrías mostrar un diálogo indicando que las credenciales son incorrectas
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => InicioAlumno()),
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Error"),
+                                content: Text("Usuario incorrecto."),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("OK"),
+                                  ),
+                                ],
+                              );
+                            },
                           );
                         }
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.red), // Cambia el color del botón a rojo
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white), // Cambia el color del texto a negro
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                       ),
                       child: Text('Log in'),
                     ),
                     SizedBox(height: 32.0),
                     GestureDetector(
                       onTap: () {
-                        // Navegar a la página RecuperarPage()
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => Recuperar()),
@@ -156,8 +162,8 @@ class Login1 extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 14.0,
-                          color: Colors.blue, // Cambia el color del texto a azul
-                          decoration: TextDecoration.underline, // Subraya el texto
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
                         ),
                       ),
                     ),

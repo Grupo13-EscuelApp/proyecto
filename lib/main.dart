@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUsuPadre_page.dart';
+import 'package:proyecto_inicio/pages/docente/p0_docente_page.dart';
 import 'package:proyecto_inicio/pages/inicio_login.dart';
 import 'package:proyecto_inicio/pages/login1_page.dart';
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/DescansoPadres': (context) => DescansoPadres(), // Ruta para la página DescansoPadres()
         '/ReponerPadres': (context) => ReponerPadres(), // Ruta para la página ReponerPadres()
         '/ChatPadres': (context) => ChatPadres(), // Ruta para la página ChatPadres()
+        '/P0_Docente': (context) => P0_Docente(), // Ruta para la página P0_Docente()
 
 
       },

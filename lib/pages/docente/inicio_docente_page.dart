@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
+import 'package:proyecto_inicio/pages/docente/p0_docente_page.dart';
+import 'package:proyecto_inicio/pages/inicio_login.dart';
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
 import 'package:proyecto_inicio/pages/menu/informacion_page.dart';
-
-import '../../main.dart';
 
 void main() {
   runApp(const InicioDocente());
@@ -20,111 +21,49 @@ class InicioDocente extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Docente1'), // Cambia el título a "Docente1"
-          centerTitle: true, // Centra el título en la AppBar
+          title: const Text('EscuelApp'),
+          centerTitle: true,
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
-                icon: const Icon(Icons.menu), // Icono de las tres rayas
+                icon: const Icon(Icons.menu),
                 onPressed: () {
-                  Scaffold.of(context).openDrawer(); // Abre el Drawer al presionar el icono
+                  Scaffold.of(context).openDrawer();
                 },
               );
             },
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.add), // Icono de agregar usuario
+              icon: const Icon(Icons.add),
               onPressed: () {
-                // Acción al presionar el botón de agregar usuario
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddUserDoc()),
+                );
               },
             ),
           ],
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 0), // Espacio desde la parte superior
-              Text(
-                'Selecciona una clase', // Texto principal
-                style: TextStyle(
-                  fontSize: 24.0, // Tamaño del texto más grande
-                  fontWeight: FontWeight.bold, // Peso de la fuente en negrita
-                  color: Colors.black, // Color del texto
-                ),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [
+                  Colors.brown,
+                  Colors.transparent,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              SizedBox(height: 50), // Espacio entre el texto y el primer botón
-              ElevatedButton(
-                onPressed: () {
-                  // Acción para el botón P0
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a naranja
-                ),
-                child: SizedBox(
-                  width: 100, // Ancho del botón
-                  child: Center(
-                    child: Text(
-                      'P0', // Texto del botón
-                      style: TextStyle(
-                        color: Colors.black, // Cambia el color del texto a negro
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 40), // Espacio entre el primer y segundo botón
-              ElevatedButton(
-                onPressed: () {
-                  // Acción para el botón P1
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a verde
-                ),
-                child: SizedBox(
-                  width: 100, // Ancho del botón
-                  child: Center(
-                    child: Text(
-                      'P0', // Texto del botón
-                      style: TextStyle(
-                        color: Colors.black, // Cambia el color del texto a negro
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 40), // Espacio entre el segundo y tercer botón
-              ElevatedButton(
-                onPressed: () {
-                  // Acción para el botón P2
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a verde
-                ),
-                child: SizedBox(
-                  width: 100, // Ancho del botón
-                  child: Center(
-                    child: Text(
-                      'P0', // Texto del botón
-                      style: TextStyle(
-                        color: Colors.black, // Cambia el color del texto a negro
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
         drawer: Drawer(
-          // Contenido del menú deslizable
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
               DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Colors.brown, // Color de fondo marrón
+                  color: Colors.brown,
                 ),
                 child: const Text(
                   'Menú de Usuario',
@@ -149,7 +88,6 @@ class InicioDocente extends StatelessWidget {
               ListTile(
                 title: const Text('Eventos', style: TextStyle(color: Colors.white)),
                 onTap: () {
-
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Eventos()),
@@ -186,21 +124,98 @@ class InicioDocente extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            // Acción para el botón de chat
-          },
-          backgroundColor: Colors.green, // Color de fondo verde para el botón de chat
-          icon: Icon(Icons.chat), // Icono de chat
-          label: Text('Chat'), // Texto "Chat"
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 0), // Espacio desde la parte superior
+              Text(
+                'Selecciona una clase', // Texto principal
+                style: TextStyle(
+                  fontSize: 24.0, // Tamaño del texto más grande
+                  fontWeight: FontWeight.bold, // Peso de la fuente en negrita
+                  color: Colors.black, // Color del texto
+                ),
+              ),
+              SizedBox(height: 50), // Espacio entre el texto y el primer botón
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => P0_Docente()),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a naranja
+                ),
+                child: SizedBox(
+                  width: 100, // Ancho del botón
+                  child: Center(
+                    child: Text(
+                      'P0', // Texto del botón
+                      style: TextStyle(
+                        color: Colors.black, // Cambia el color del texto a negro
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 40), // Espacio entre el primer y segundo botón
+              ElevatedButton(
+                onPressed: () {
+                  // Acción para el botón P1
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a verde
+                ),
+                child: SizedBox(
+                  width: 100, // Ancho del botón
+                  child: Center(
+                    child: Text(
+                      'P1', // Texto del botón
+                      style: TextStyle(
+                        color: Colors.black, // Cambia el color del texto a negro
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 40), // Espacio entre el segundo y tercer botón
+              ElevatedButton(
+                onPressed: () {
+                  // Acción para el botón P2
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a verde
+                ),
+                child: SizedBox(
+                  width: 100, // Ancho del botón
+                  child: Center(
+                    child: Text(
+                      'P2', // Texto del botón
+                      style: TextStyle(
+                        color: Colors.black, // Cambia el color del texto a negro
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 200), // Espacio desde la parte inferior
+            ],
+          ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, // Posición del botón flotante
-        floatingActionButtonAnimator: FloatingActionButtonAnimator.noAnimation, // Animación del botón flotante
-        bottomNavigationBar: BottomAppBar(
-          elevation: 0, // Sin sombra
-          color: Colors.transparent, // Fondo transparente
-          child: SizedBox(height: 20), // Sin contenido
+        floatingActionButton: Container(
+          width: 300, // Ancho del botón de chat
+          child: FloatingActionButton.extended(
+            onPressed: () {
+              // Acción para el botón de chat
+            },
+            backgroundColor: Colors.green,
+            icon: Icon(Icons.chat),
+            label: Text('Chat'),
+          ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

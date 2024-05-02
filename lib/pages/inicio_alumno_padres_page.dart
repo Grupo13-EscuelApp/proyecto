@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_inicio/pages/a%C3%B1adir/addUsuPadre_page.dart';
 
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
 import 'package:proyecto_inicio/pages/padres/menu_alumno_padres_page.dart';
 
 import '../main.dart';
-import 'añadir/addUserDoc_page.dart';
+
 import 'menu/informacion_page.dart';
 
 void main() {
@@ -42,7 +43,7 @@ class InicioAlumno extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddUserDoc()),
+                  MaterialPageRoute(builder: (context) => AddUserPadre()),
                 );
               },
             ),
