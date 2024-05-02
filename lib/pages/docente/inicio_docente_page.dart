@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
 import 'package:proyecto_inicio/pages/docente/p0_docente_page.dart';
+import 'package:proyecto_inicio/pages/docente/p1_docente_page.dart';
+import 'package:proyecto_inicio/pages/docente/p2_docente_page.dart';
 import 'package:proyecto_inicio/pages/inicio_login.dart';
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
@@ -163,7 +165,10 @@ class InicioDocente extends StatelessWidget {
               SizedBox(height: 40), // Espacio entre el primer y segundo botón
               ElevatedButton(
                 onPressed: () {
-                  // Acción para el botón P1
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => P1_Docente()),
+                  );
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a verde
@@ -183,7 +188,10 @@ class InicioDocente extends StatelessWidget {
               SizedBox(height: 40), // Espacio entre el segundo y tercer botón
               ElevatedButton(
                 onPressed: () {
-                  // Acción para el botón P2
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => P2_Docente()),
+                  );
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent), // Cambia el color de fondo del botón a verde

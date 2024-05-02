@@ -10,11 +10,11 @@ import '../../main.dart';
 
 
 void main() {
-  runApp(const P0_Docente());
+  runApp(const P1_Docente());
 }
 
-class P0_Docente extends StatelessWidget {
-  const P0_Docente({Key? key}) : super(key: key);
+class P1_Docente extends StatelessWidget {
+  const P1_Docente({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class P0_Docente extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Curso P0'),
+          title: const Text('Curso P1'),
           centerTitle: true, // Centra el título en la AppBar
 
           leading: Builder(
@@ -146,7 +146,7 @@ class P0_Docente extends StatelessWidget {
                   child: Alumno(
                     nombre: 'Nombre del Alumno 1',
                     apellido: 'Apellido del Alumno 1',
-                    clase: 'P0',
+                    clase: 'P1',
                     fotoUrl: 'https://via.placeholder.com/108x105',
                   ),
                 ),
@@ -160,7 +160,7 @@ class P0_Docente extends StatelessWidget {
                   child: Alumno(
                     nombre: 'Nombre del Alumno 2',
                     apellido: 'Apellido del Alumno 2',
-                    clase: 'P0',
+                    clase: 'P1',
                     fotoUrl: 'https://via.placeholder.com/108x105',
                   ),
                 ),
@@ -174,7 +174,7 @@ class P0_Docente extends StatelessWidget {
                   child: Alumno(
                     nombre: 'Nombre del Alumno 3',
                     apellido: 'Apellido del Alumno 3',
-                    clase: 'P0',
+                    clase: 'P1',
                     fotoUrl: 'https://via.placeholder.com/108x105',
                   ),
                 ),
@@ -188,7 +188,7 @@ class P0_Docente extends StatelessWidget {
                   child: Alumno(
                     nombre: 'Nombre del Alumno 4',
                     apellido: 'Apellido del Alumno 4',
-                    clase: 'P0',
+                    clase: 'P1',
                     fotoUrl: 'https://via.placeholder.com/108x105',
                   ),
                 ),
@@ -202,7 +202,7 @@ class P0_Docente extends StatelessWidget {
                   child: Alumno(
                     nombre: 'Nombre del Alumno 5',
                     apellido: 'Apellido del Alumno 5',
-                    clase: 'P0',
+                    clase: 'P1',
                     fotoUrl: 'https://via.placeholder.com/108x105',
                   ),
                 ),
@@ -216,7 +216,7 @@ class P0_Docente extends StatelessWidget {
                   child: Alumno(
                     nombre: 'Nombre del Alumno 6',
                     apellido: 'Apellido del Alumno 6',
-                    clase: 'P0',
+                    clase: 'P1',
                     fotoUrl: 'https://via.placeholder.com/108x105',
                   ),
                 ),
