@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
-
+import 'package:proyecto_inicio/pages/docente/inicio_docente_page.dart';
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
 import 'package:proyecto_inicio/pages/menu/informacion_page.dart';
 import 'package:proyecto_inicio/pages/padres/menu_alumno_padres_page.dart';
-
 import '../../main.dart';
-
 
 void main() {
   runApp(const P0_Docente());
@@ -26,13 +24,15 @@ class P0_Docente extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Curso P0'),
           centerTitle: true, // Centra el título en la AppBar
-
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
-                icon: const Icon(Icons.menu), // Icono de las tres rayas
+                icon: const Icon(Icons.arrow_back, color: Colors.red), // Botón de flecha hacia atrás en rojo
                 onPressed: () {
-                  Scaffold.of(context).openDrawer(); // Abre el Drawer al presionar el icono
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => InicioDocente()),
+                  );
                 },
               );
             },
@@ -93,7 +93,6 @@ class P0_Docente extends StatelessWidget {
               ListTile(
                 title: const Text('Eventos', style: TextStyle(color: Colors.white)),
                 onTap: () {
-
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Eventos()),
@@ -130,7 +129,8 @@ class P0_Docente extends StatelessWidget {
             ],
           ),
         ),
-        body: Center( // Centra el ListView horizontalmente
+        body: Center(
+          // Centra el ListView horizontalmente
           child: Container(
             height: 289,
             child: ListView(
@@ -262,7 +262,8 @@ class Alumno extends StatelessWidget {
                   color: const Color(0xFFF5F5F5),
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: Center( // Centra el contenido verticalmente
+                child: Center(
+                  // Centra el contenido verticalmente
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
