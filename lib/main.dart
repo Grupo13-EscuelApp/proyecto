@@ -63,6 +63,7 @@ class MyApp extends StatelessWidget {
           apellidoAlumno: 'Apellido del alumno',
           fotoUrlAlumno: 'https://via.placeholder.com/108x105',
 
+
         ),// Ruta para la pagina DepoDoc()
         '/ComidaDocente': (context) => ComidaDocente(), // Ruta para la página ComidaDocente()
       },
