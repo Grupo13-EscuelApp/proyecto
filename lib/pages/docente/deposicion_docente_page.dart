@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_inicio/pages/BBDD/DatabaseHelper.dart';
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
 import '../../main.dart';
 import '../menu/informacion_page.dart';
+
+
 
 class Deposicion {
   final String hora; // Hora de la deposición
@@ -36,8 +39,21 @@ class DepoDoc extends StatefulWidget {
 }
 
 class _DepoDocState extends State<DepoDoc> {
-  // Lista de deposiciones del alumno
+  String emailUsuario = ''; // Variable para almacenar el email del usuario
   List<Deposicion> deposiciones = [];
+
+  @override
+  void initState() {
+    super.initState();
+    obtenerEmailUsuario(); // Llama a la función para obtener el email del usuario al iniciar la pantalla
+  }
+
+  void obtenerEmailUsuario() async {
+    // Aquí utilizamos la clase DatabaseHelper para obtener el email del usuario
+    // Supongamos que el método para obtener el email del usuario se llama obtenerEmailUsuario()
+    emailUsuario = await DatabaseHelper().obtenerEmailUsuario();
+    setState(() {}); // Actualiza el estado para reflejar el email del usuario en el Drawer
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,25 +103,25 @@ class _DepoDocState extends State<DepoDoc> {
                 decoration: BoxDecoration(
                   color: Colors.brown, // Color de fondo marrón
                 ),
-                child: const Text(
-                  'Menú de Usuario',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Menú de Usuario',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                    Text(
+                      emailUsuario, // Mostrar el email del usuario obtenido de la base de datos
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  // Agregar aquí la funcionalidad para el nombre de usuario
-                },
-              ),
-              ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  // Agregar aquí la funcionalidad para el email
-                },
               ),
               ListTile(
                 title: const Text('Eventos', style: TextStyle(color: Colors.white)),

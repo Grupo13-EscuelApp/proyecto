@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_inicio/pages/docente/alimentacion_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/deposicion_docente_page.dart';
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
@@ -189,7 +190,7 @@ class MenuDocentes extends StatelessWidget {
         } else if(title == 'Alimentación') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ComidaPadres()),
+            MaterialPageRoute(builder: (context) => const ComidaDocente()),
           );
         } else if( title == 'Descanso') {
           Navigator.push(
