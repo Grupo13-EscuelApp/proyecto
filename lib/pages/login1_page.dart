@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/docente/inicio_docente_page.dart';
 import 'package:proyecto_inicio/pages/inicio_alumno_padres_page.dart';
 import 'package:proyecto_inicio/pages/recuperar_page.dart';
+import 'package:proyecto_inicio/pages/BBDD/DatabaseHelper.dart';
+
+import 'BBDD/usuario_class.dart';
 
 class Login1 extends StatelessWidget {
-  const Login1({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+
+  Login1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -92,27 +97,36 @@ class Login1 extends StatelessWidget {
                         ),
                         SizedBox(height: 80.0),
                         ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             String email = emailController.text;
                             String password = passwordController.text;
 
-                            if (email.isEmpty) {
+                            if (email.isEmpty || password.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('El campo de correo electrónico no puede estar vacío.')),
+                                SnackBar(content: Text('Debes ingresar un correo electrónico y una contraseña.')),
                               );
-                            } else if (email == "docente") {
+                              return;
+                            }
+
+                            // Buscar usuario en la base de datos
+                            Usuario? usuario = await databaseHelper.buscarUsuario(email, password);
+                            if (usuario == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Correo electrónico no registrado o contraseña incorrecta.')),
+                              );
+                              return;
+                            }
+
+                            // Determinar a qué pantalla redirigir
+                            if (usuario.tipo == "docente") {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => InicioDocente()),
                               );
-                            } else if (email == "padre") {
+                            } else if (usuario.tipo == "padre") {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => InicioAlumno()),
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Usuario incorrecto.')),
                               );
                             }
                           },
@@ -131,7 +145,7 @@ class Login1 extends StatelessWidget {
                             );
                           },
                           child: Text(
-                            'Olvidastes tu contraseña?',
+                            '¿Olvidaste tu contraseña?',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 14.0,
