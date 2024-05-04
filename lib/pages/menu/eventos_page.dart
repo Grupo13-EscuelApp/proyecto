@@ -154,6 +154,7 @@ class _EventosState extends State<Eventos> {
                     ElevatedButton(
                       onPressed: () {
                       setState(() {
+                        _eventosPorDia[_selectedDay] = _eventoController.text;
                          _eventoTexto = _eventoController.text;
                      });
                        Navigator.of(context).pop();
@@ -205,7 +206,7 @@ class _EventosState extends State<Eventos> {
               ),
               child: Text(
                 // Formatea la fecha para mostrar solo día, mes y año
-                'Información del día seleccionado: ${DateFormat('dd/MM/yyyy').format(_selectedDay)}\nEvento: $_eventoTexto',
+                'Información del día seleccionado: ${DateFormat('dd/MM/yyyy').format(_selectedDay)}\nEvento: ${_eventosPorDia[_selectedDay] ?? ''}',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
