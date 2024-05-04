@@ -51,6 +51,15 @@ class DatabaseHelper {
     });
   }
 
+  Future<String> obtenerEmailUsuario() async {
+    Database db = await database;
+    List<Map<String, dynamic>> results = await db.query('registro');
+    if (results.isNotEmpty) {
+      return results.first['email'];
+    }
+    return ''; // O cualquier otro valor predeterminado
+  }
+
   Future<Usuario?> buscarUsuario(String email, String password) async {
     Database db = await database;
     List<Map<String, dynamic>> results = await db.query('registro', where: 'email = ? AND pass = ?', whereArgs: [email, password]);

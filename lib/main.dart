@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUsuPadre_page.dart';
+import 'package:proyecto_inicio/pages/docente/alimentacion_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/deposicion_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/menu_docente_alumno_page.dart';
 import 'package:proyecto_inicio/pages/docente/p0_docente_page.dart';
@@ -64,7 +65,9 @@ class MyApp extends StatelessWidget {
           apellidoAlumno: 'Apellido del alumno',
           fotoUrlAlumno: 'https://via.placeholder.com/108x105',
 
-        ), // Ruta para la pagina DepoDoc()
+
+        ),// Ruta para la pagina DepoDoc()
+        '/ComidaDocente': (context) => ComidaDocente(), // Ruta para la página ComidaDocente()
       },
 
     );
