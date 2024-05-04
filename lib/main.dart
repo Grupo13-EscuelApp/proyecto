@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUsuPadre_page.dart';
 import 'package:proyecto_inicio/pages/docente/deposicion_docente_page.dart';
@@ -37,27 +38,28 @@ class MyApp extends StatelessWidget {
         '/login1': (context) => Login1(), // Ruta para la página Login1()
         '/registro': (context) => Registro(), // Ruta para la página Registro()
         '/recuperar': (context) => Recuperar(), // Ruta para la página Recuperar()
-        '/InicioAlumno': (context) => InicioAlumno(), // Ruta para la página InicioAlumno()
-        '/Informacion': (context) => Informacion(), // Ruta para la página Informacion()
-        '/Eventos': (context) => Eventos(), // Ruta para la página Eventos()
-        '/Ajustes': (context) => Ajustes(), // Ruta para la página Ajustes()
-        '/AddUserPadre': (context) => AddUserPadre(), // Ruta para la página AddUserPadre()
-        '/AddUserDoc': (context) => AddUserDoc(), // Ruta para la página AddUserDoc()
-        '/MenuPadres': (context) => MenuPadres(), // Ruta para la página MenuPadres()
-        '/ComidaPadres': (context) => ComidaPadres(), // Ruta para la página ComidaPadres()
-        '/DepoPadres': (context) => DepoPadres(), // Ruta para la página DepoPadres()
-        '/DescansoPadres': (context) => DescansoPadres(), // Ruta para la página DescansoPadres()
-        '/ReponerPadres': (context) => ReponerPadres(), // Ruta para la página ReponerPadres()
-        '/ChatPadres': (context) => ChatPadres(), // Ruta para la página ChatPadres()
-        '/P0_Docente': (context) => P0_Docente(), // Ruta para la página P0_Docente()
-        '/P1_Docente': (context) => P1_Docente(), // Ruta para la página P1_Docente()
-        '/P2_Docente': (context) => P2_Docente(), // Ruta para la página P2_Docente()
+        '/InicioAlumno': (context) => InicioAlumno(Usuario as Usuario), // Ruta para la página InicioAlumno()
+        '/Informacion': (context) => Informacion(Usuario as Usuario), // Ruta para la página Informacion()
+        '/Eventos': (context) => Eventos(Usuario as Usuario), // Ruta para la página Eventos()
+        '/Ajustes': (context) => Ajustes(Usuario as Usuario), // Ruta para la página Ajustes()
+        '/AddUserPadre': (context) => AddUserPadre(Usuario as Usuario), // Ruta para la página AddUserPadre()
+        '/AddUserDoc': (context) => AddUserDoc(Usuario as Usuario), // Ruta para la página AddUserDoc()
+        '/MenuPadres': (context) => MenuPadres(Usuario as Usuario), // Ruta para la página MenuPadres()
+        '/ComidaPadres': (context) => ComidaPadres(Usuario as Usuario), // Ruta para la página ComidaPadres()
+        '/DepoPadres': (context) => DepoPadres(Usuario as Usuario), // Ruta para la página DepoPadres()
+        '/DescansoPadres': (context) => DescansoPadres(Usuario as Usuario), // Ruta para la página DescansoPadres()
+        '/ReponerPadres': (context) => ReponerPadres(Usuario as Usuario), // Ruta para la página ReponerPadres()
+        '/ChatPadres': (context) => ChatPadres(Usuario as Usuario), // Ruta para la página ChatPadres()
+        '/P0_Docente': (context) => P0_Docente(Usuario as Usuario), // Ruta para la página P0_Docente()
+        '/P1_Docente': (context) => P1_Docente(Usuario as Usuario), // Ruta para la página P1_Docente()
+        '/P2_Docente': (context) => P2_Docente(Usuario as Usuario), // Ruta para la página P2_Docente()
         '/MenuDocentes': (context) => MenuDocentes(
           nombreAlumno: 'Nombre del alumno seleccionado',
           apellidoAlumno: 'Apellido del alumno seleccionado',
-          fotoUrlAlumno: 'URL de la foto del alumno seleccionado',
+          fotoUrlAlumno: 'URL de la foto del alumno seleccionado', usuario: Usuario as Usuario,
         ), // Ruta para la página MenuDocentes()
         '/DepoDoc': (context) => DepoDoc(
+          Usuario as Usuario,
           nombreAlumno: 'Nombre del alumno',
           apellidoAlumno: 'Apellido del alumno',
           fotoUrlAlumno: 'https://via.placeholder.com/108x105',

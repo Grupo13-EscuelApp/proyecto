@@ -2,16 +2,21 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../main.dart';
+import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/usuario_class.dart';
 import '../menu/ajustes_page.dart';
 import '../menu/eventos_page.dart';
 import '../menu/informacion_page.dart';
 
 void main() {
-  runApp(AddUserDoc());
+  Usuario usuario = Usuario("","","");
+  runApp(AddUserDoc(usuario));
 }
 
 class AddUserDoc extends StatefulWidget {
-  const AddUserDoc({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
+  AddUserDoc(this.usuario, {Key? key}) : super(key: key);
 
   @override
   _AddUserDocState createState() => _AddUserDocState();
@@ -23,6 +28,7 @@ class _AddUserDocState extends State<AddUserDoc> {
 
   @override
   Widget build(BuildContext context) {
+    String emailUsuario = widget.usuario.email;
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.white,
@@ -71,11 +77,7 @@ class _AddUserDocState extends State<AddUserDoc> {
                 ),
               ),
               ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
-                onTap: () {},
-              ),
-              ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {},
               ),
               ListTile(
@@ -83,7 +85,7 @@ class _AddUserDocState extends State<AddUserDoc> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Eventos()),
+                    MaterialPageRoute(builder: (context) => Eventos(Usuario as Usuario)),
                   );
                 },
               ),
@@ -92,7 +94,7 @@ class _AddUserDocState extends State<AddUserDoc> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Informacion()),
+                    MaterialPageRoute(builder: (context) => Informacion(Usuario as Usuario)),
                   );
                 },
               ),
@@ -101,7 +103,7 @@ class _AddUserDocState extends State<AddUserDoc> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
+                    MaterialPageRoute(builder: (context) => Ajustes(Usuario as Usuario)),
                   );
                 },
               ),

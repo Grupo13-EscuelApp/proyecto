@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
+import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/usuario_class.dart';
 import 'ajustes_page.dart';
 import 'eventos_page.dart';
 
 void main() {
-  runApp(const Informacion());
+  Usuario usuario = Usuario("","","");
+  runApp(Informacion(usuario));
 }
 
 class Informacion extends StatelessWidget {
-  const Informacion({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
+  Informacion(this.usuario, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +86,7 @@ class Informacion extends StatelessWidget {
 
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Eventos()),
+                    MaterialPageRoute(builder: (context) => Eventos(usuario)),
                   );
                 },
               ),
@@ -90,7 +95,7 @@ class Informacion extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Informacion()),
+                    MaterialPageRoute(builder: (context) => Informacion(usuario)),
                   );
                 },
               ),
@@ -99,7 +104,7 @@ class Informacion extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
+                    MaterialPageRoute(builder: (context) => Ajustes(usuario)),
                   );
                 },
               ),

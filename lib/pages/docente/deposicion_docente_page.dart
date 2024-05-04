@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
 import '../../main.dart';
+import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/usuario_class.dart';
 import '../menu/informacion_page.dart';
 
 class Deposicion {
@@ -12,7 +14,8 @@ class Deposicion {
 }
 
 void main() {
-  runApp(const DepoDoc(
+  Usuario usuario = Usuario("","","");
+  runApp(DepoDoc(usuario,
     nombreAlumno: '',
     apellidoAlumno: '',
     fotoUrlAlumno: '',
@@ -23,8 +26,10 @@ class DepoDoc extends StatefulWidget {
   final String nombreAlumno;
   final String apellidoAlumno;
   final String fotoUrlAlumno;
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
 
-  const DepoDoc({
+  DepoDoc(this.usuario,{
     Key? key,
     required this.nombreAlumno,
     required this.apellidoAlumno,
@@ -41,6 +46,7 @@ class _DepoDocState extends State<DepoDoc> {
 
   @override
   Widget build(BuildContext context) {
+    String emailUsuario = widget.usuario.email;
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.white, // Color del fondo del Scaffold en blanco
@@ -96,13 +102,7 @@ class _DepoDocState extends State<DepoDoc> {
                 ),
               ),
               ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  // Agregar aquí la funcionalidad para el nombre de usuario
-                },
-              ),
-              ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el email
                 },
@@ -112,7 +112,7 @@ class _DepoDocState extends State<DepoDoc> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Eventos()),
+                    MaterialPageRoute(builder: (context) => Eventos(Usuario as Usuario)),
                   );
                 },
               ),
@@ -121,7 +121,7 @@ class _DepoDocState extends State<DepoDoc> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Informacion()),
+                    MaterialPageRoute(builder: (context) => Informacion(Usuario as Usuario)),
                   );
                 },
               ),
@@ -130,7 +130,7 @@ class _DepoDocState extends State<DepoDoc> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
+                    MaterialPageRoute(builder: (context) => Ajustes(Usuario as Usuario)),
                   );
                 },
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
 import 'package:proyecto_inicio/pages/docente/inicio_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/menu_docente_alumno_page.dart';
@@ -6,16 +7,21 @@ import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
 import 'package:proyecto_inicio/pages/menu/informacion_page.dart';
 import '../../main.dart';
+import '../BBDD/DatabaseHelper.dart';
 
 void main() {
-  runApp(const P0_Docente());
+  Usuario usuario = Usuario("","","");
+  runApp(P0_Docente(usuario));
 }
 
 class P0_Docente extends StatelessWidget {
-  const P0_Docente({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
+  P0_Docente(this.usuario,{Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String emailUsuario = usuario.email;
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.white, // Color del fondo del Scaffold en blanco
@@ -31,7 +37,7 @@ class P0_Docente extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => InicioDocente()),
+                    MaterialPageRoute(builder: (context) => InicioDocente(Usuario as Usuario)),
                   );
                 },
               );
@@ -43,7 +49,7 @@ class P0_Docente extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddUserDoc()),
+                  MaterialPageRoute(builder: (context) => AddUserDoc(usuario)),
                 );
               },
             ),
@@ -85,7 +91,7 @@ class P0_Docente extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el email
                 },
@@ -95,7 +101,7 @@ class P0_Docente extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Eventos()),
+                    MaterialPageRoute(builder: (context) => Eventos(usuario)),
                   );
                 },
               ),
@@ -104,7 +110,7 @@ class P0_Docente extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Informacion()),
+                    MaterialPageRoute(builder: (context) => Informacion(usuario)),
                   );
                 },
               ),
@@ -113,7 +119,7 @@ class P0_Docente extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
+                    MaterialPageRoute(builder: (context) => Ajustes(usuario)),
                   );
                 },
               ),
@@ -144,6 +150,7 @@ class P0_Docente extends StatelessWidget {
                         nombreAlumno: 'Alumno 1',
                         apellidoAlumno: 'Apellido 1',
                         fotoUrlAlumno: 'https://via.placeholder.com/108x105',
+                        usuario: usuario,
                       )),
                     );
                   },
@@ -152,6 +159,7 @@ class P0_Docente extends StatelessWidget {
                     apellido: 'Apellido 1',
                     clase: 'P0',
                     fotoUrl: 'https://via.placeholder.com/108x105',
+                    usuario: usuario,
                   ),
                 ),
                 GestureDetector(
@@ -162,6 +170,7 @@ class P0_Docente extends StatelessWidget {
                         nombreAlumno: 'Alumno 2',
                         apellidoAlumno: 'Apellido 2',
                         fotoUrlAlumno: 'https://via.placeholder.com/108x105',
+                        usuario: usuario,
                       )),
                     );
                   },
@@ -170,6 +179,7 @@ class P0_Docente extends StatelessWidget {
                     apellido: 'Apellido 2',
                     clase: 'P0',
                     fotoUrl: 'https://via.placeholder.com/108x105',
+                    usuario: usuario,
                   ),
                 ),
                 GestureDetector(
@@ -180,6 +190,7 @@ class P0_Docente extends StatelessWidget {
                         nombreAlumno: 'Alumno 3',
                         apellidoAlumno: 'Apellido 3',
                         fotoUrlAlumno: 'https://via.placeholder.com/108x105',
+                        usuario: usuario,
                       )),
                     );
                   },
@@ -188,6 +199,7 @@ class P0_Docente extends StatelessWidget {
                     apellido: 'Apellido 3',
                     clase: 'P0',
                     fotoUrl: 'https://via.placeholder.com/108x105',
+                    usuario: usuario,
                   ),
                 ),
                 GestureDetector(
@@ -198,6 +210,7 @@ class P0_Docente extends StatelessWidget {
                         nombreAlumno: 'Alumno 4',
                         apellidoAlumno: 'Apellido 4',
                         fotoUrlAlumno: 'https://via.placeholder.com/108x105',
+                        usuario: usuario,
                       )),
                     );
                   },
@@ -206,6 +219,7 @@ class P0_Docente extends StatelessWidget {
                     apellido: 'Apellido 4',
                     clase: 'P0',
                     fotoUrl: 'https://via.placeholder.com/108x105',
+                    usuario: usuario,
                   ),
                 ),
 
@@ -223,12 +237,14 @@ class Alumno extends StatelessWidget {
   final String apellido;
   final String clase;
   final String fotoUrl;
+  final Usuario usuario;
 
   const Alumno({
     required this.nombre,
     required this.apellido,
     required this.clase,
     required this.fotoUrl,
+    required this.usuario,
   });
 
   @override
@@ -302,6 +318,7 @@ class Alumno extends StatelessWidget {
                       nombreAlumno: nombre,
                       apellidoAlumno: apellido,
                       fotoUrlAlumno: fotoUrl,
+                      usuario: usuario,
                     )),
                   );
                 },

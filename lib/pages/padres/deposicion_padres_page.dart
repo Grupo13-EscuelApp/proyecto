@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
 import '../../main.dart';
+import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/usuario_class.dart';
 import '../menu/informacion_page.dart';
 
 class Deposicion {
@@ -12,11 +14,14 @@ class Deposicion {
 }
 
 void main() {
-  runApp(const DepoPadres());
+  Usuario usuario = Usuario("","","");
+  runApp(DepoPadres(usuario));
 }
 
 class DepoPadres extends StatelessWidget {
-  const DepoPadres({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
+  DepoPadres(this.usuario, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +29,7 @@ class DepoPadres extends StatelessWidget {
     String nombreAlumno = 'Juan';
     String apellidoAlumno = 'Pérez';
     String fotoUrlAlumno = 'https://via.placeholder.com/150';
+    String emailUsuario = usuario.email;
 
     // Datos simulados de las deposiciones del alumno
     List<Deposicion> deposiciones = [
@@ -87,13 +93,7 @@ class DepoPadres extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  // Agregar aquí la funcionalidad para el nombre de usuario
-                },
-              ),
-              ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el email
                 },
@@ -103,7 +103,7 @@ class DepoPadres extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Eventos()),
+                    MaterialPageRoute(builder: (context) => Eventos(usuario)),
                   );
                 },
               ),
@@ -112,7 +112,7 @@ class DepoPadres extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Informacion()),
+                    MaterialPageRoute(builder: (context) => Informacion(usuario)),
                   );
                 },
               ),
@@ -121,7 +121,7 @@ class DepoPadres extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
+                    MaterialPageRoute(builder: (context) => Ajustes(usuario)),
                   );
                 },
               ),

@@ -8,14 +8,18 @@ import 'package:proyecto_inicio/pages/padres/deposicion_padres_page.dart';
 import 'package:proyecto_inicio/pages/padres/descanso_padres_page.dart';
 import 'package:proyecto_inicio/pages/padres/reponer_padres_page.dart';
 import '../../main.dart';
+import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/usuario_class.dart';
 import '../menu/informacion_page.dart';
 
 void main() {
+  Usuario usuario = Usuario("","","");
   runApp(
     MenuDocentes(
       nombreAlumno: 'Nombre del alumno', // Reemplazar con el nombre del alumno seleccionado
       apellidoAlumno: 'Apellido del alumno', // Reemplazar con el apellido del alumno seleccionado
       fotoUrlAlumno: 'https://via.placeholder.com/108x105', // Reemplazar con la URL de la foto del alumno seleccionado
+      usuario: usuario,
     ),
   );
 }
@@ -24,16 +28,21 @@ class MenuDocentes extends StatelessWidget {
   final String nombreAlumno;
   final String apellidoAlumno;
   final String fotoUrlAlumno;
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
 
-  const MenuDocentes({
+  MenuDocentes({
+
     Key? key,
     required this.nombreAlumno,
     required this.apellidoAlumno,
     required this.fotoUrlAlumno,
+    required this.usuario,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String emailUsuario = usuario.email;
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.white, // Color del fondo del Scaffold en blanco
@@ -89,13 +98,7 @@ class MenuDocentes extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  // Agregar aquí la funcionalidad para el nombre de usuario
-                },
-              ),
-              ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el email
                 },
@@ -105,7 +108,7 @@ class MenuDocentes extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Eventos()),
+                    MaterialPageRoute(builder: (context) => Eventos(usuario)),
                   );
                 },
               ),
@@ -114,7 +117,7 @@ class MenuDocentes extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Informacion()),
+                    MaterialPageRoute(builder: (context) => Informacion(usuario)),
                   );
                 },
               ),
@@ -123,7 +126,7 @@ class MenuDocentes extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
+                    MaterialPageRoute(builder: (context) => Ajustes(usuario)),
                   );
                 },
               ),
@@ -178,6 +181,7 @@ class MenuDocentes extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => DepoDoc(
+                usuario,
                 nombreAlumno: nombreAlumno,
                 apellidoAlumno: apellidoAlumno,
                 fotoUrlAlumno: fotoUrlAlumno,
@@ -189,22 +193,22 @@ class MenuDocentes extends StatelessWidget {
         } else if(title == 'Alimentación') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ComidaPadres()),
+            MaterialPageRoute(builder: (context) => ComidaPadres(usuario)),
           );
         } else if( title == 'Descanso') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const DescansoPadres()),
+            MaterialPageRoute(builder: (context) => DescansoPadres(usuario)),
           );
         } else if(title == 'Reponer'){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ReponerPadres()),
+            MaterialPageRoute(builder: (context) => ReponerPadres(usuario)),
           );
         } else if(title == 'Chat'){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ChatPadres()),
+            MaterialPageRoute(builder: (context) => ChatPadres(usuario)),
           );
         }
       },

@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
+import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/usuario_class.dart';
 import '../menu/ajustes_page.dart';
 import '../menu/eventos_page.dart';
 import '../menu/informacion_page.dart';
 
 void main() {
-  runApp(const AddUserPadre());
+  Usuario usuario = Usuario("","","");
+  runApp(AddUserPadre(usuario));
 }
 
 class AddUserPadre extends StatelessWidget {
-  const AddUserPadre({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
+  AddUserPadre(this.usuario, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String emailUsuario = usuario.email;
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.white,
@@ -63,13 +69,7 @@ class AddUserPadre extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  // Agregar aquí la funcionalidad para el nombre de usuario
-                },
-              ),
-              ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el email
                 },
@@ -79,7 +79,7 @@ class AddUserPadre extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Eventos()),
+                    MaterialPageRoute(builder: (context) => Eventos(usuario)),
                   );
                 },
               ),
@@ -88,7 +88,7 @@ class AddUserPadre extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Informacion()),
+                    MaterialPageRoute(builder: (context) => Informacion(usuario)),
                   );
                 },
               ),
@@ -97,7 +97,7 @@ class AddUserPadre extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
+                    MaterialPageRoute(builder: (context) => Ajustes(usuario)),
                   );
                 },
               ),

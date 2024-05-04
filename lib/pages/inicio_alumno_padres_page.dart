@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUsuPadre_page.dart';
 
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
@@ -7,17 +8,23 @@ import 'package:proyecto_inicio/pages/padres/menu_alumno_padres_page.dart';
 
 import '../main.dart';
 
+import 'BBDD/DatabaseHelper.dart';
 import 'menu/informacion_page.dart';
 
 void main() {
-  runApp(const InicioAlumno());
+  Usuario usuario = Usuario("","","");
+  runApp(InicioAlumno(usuario));
 }
 
 class InicioAlumno extends StatelessWidget {
-  const InicioAlumno({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
+  InicioAlumno(this.usuario, {Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+    String emailUsuario = usuario.email;
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.white, // Color del fondo del Scaffold en blanco
@@ -43,7 +50,7 @@ class InicioAlumno extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddUserPadre()),
+                  MaterialPageRoute(builder: (context) => AddUserPadre(usuario)),
                 );
               },
             ),
@@ -79,13 +86,7 @@ class InicioAlumno extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  // Agregar aquí la funcionalidad para el nombre de usuario
-                },
-              ),
-              ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el email
                 },
@@ -96,7 +97,7 @@ class InicioAlumno extends StatelessWidget {
 
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Eventos()),
+                    MaterialPageRoute(builder: (context) => Eventos(usuario)),
                   );
                 },
               ),
@@ -105,7 +106,7 @@ class InicioAlumno extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Informacion()),
+                    MaterialPageRoute(builder: (context) => Informacion(usuario)),
                   );
                 },
               ),
@@ -114,7 +115,7 @@ class InicioAlumno extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
+                    MaterialPageRoute(builder: (context) => Ajustes(usuario)),
                   );
                 },
               ),
@@ -140,7 +141,7 @@ class InicioAlumno extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MenuPadres()),
+                      MaterialPageRoute(builder: (context) => MenuPadres(usuario)),
                     );
                   },
                   child: Alumno(
@@ -148,13 +149,14 @@ class InicioAlumno extends StatelessWidget {
                     apellido: 'Apellido del hijo 1',
                     clase: 'Clase del hijo 1',
                     fotoUrl: 'https://via.placeholder.com/108x105',
+                    usuario: usuario,
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MenuPadres()),
+                      MaterialPageRoute(builder: (context) => MenuPadres(usuario)),
                     );
                   },
                   child: Alumno(
@@ -162,6 +164,7 @@ class InicioAlumno extends StatelessWidget {
                     apellido: 'Apellido del hijo 2',
                     clase: 'Clase del hijo 2',
                     fotoUrl: 'https://via.placeholder.com/108x105',
+                    usuario: usuario,
                   ),
                 ),
                 // Agrega más Alumnos según sea necesario
@@ -179,12 +182,14 @@ class Alumno extends StatelessWidget {
   final String apellido;
   final String clase;
   final String fotoUrl;
+  final Usuario usuario;
 
   const Alumno({
     required this.nombre,
     required this.apellido,
     required this.clase,
     required this.fotoUrl,
+    required this.usuario,
   });
 
   @override
@@ -252,8 +257,8 @@ class Alumno extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MenuPadres()),
+                      context,
+                      MaterialPageRoute(builder: (context) => MenuPadres(usuario)),
                   );
                 },
                 child: Container(

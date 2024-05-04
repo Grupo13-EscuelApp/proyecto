@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
 import 'package:proyecto_inicio/pages/menu/informacion_page.dart';
 import 'package:proyecto_inicio/pages/inicio_alumno_padres_page.dart';
 
 import '../../main.dart';
+import '../BBDD/DatabaseHelper.dart';
 import 'eliminar_page.dart';
 
 void main() {
-  runApp(const Ajustes());
+  Usuario usuario = Usuario("","","");
+  runApp(Ajustes(usuario));
 }
 
 class Ajustes extends StatelessWidget {
-  const Ajustes({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
+  Ajustes(this.usuario, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +103,7 @@ class _AjustesPageState extends State<AjustesPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Eventos()),
+                  MaterialPageRoute(builder: (context) => Eventos(Usuario as Usuario)),
                 );
               },
             ),
@@ -108,7 +113,7 @@ class _AjustesPageState extends State<AjustesPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Informacion()),
+                  MaterialPageRoute(builder: (context) => Informacion(Usuario as Usuario)),
                 );
               },
             ),
@@ -190,7 +195,7 @@ class _AjustesPageState extends State<AjustesPage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Eliminar()),
+                            MaterialPageRoute(builder: (context) => Eliminar(Usuario as Usuario)),
                           );
                         },
                       ),
@@ -206,7 +211,7 @@ class _AjustesPageState extends State<AjustesPage> {
               // Navegar a la ventana InicioAlumno
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => InicioAlumno()),
+                MaterialPageRoute(builder: (context) => InicioAlumno(Usuario as Usuario)),
               );
             },
             style: ButtonStyle(

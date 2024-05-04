@@ -3,15 +3,20 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart'; // Importa el paquete intl para formatear la fecha
 
 import '../../main.dart';
+import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/usuario_class.dart';
 import 'ajustes_page.dart';
 import 'informacion_page.dart';
 
 void main() {
-  runApp(const Eventos());
+  Usuario usuario = Usuario("","","");
+  runApp(Eventos(usuario));
 }
 
 class Eventos extends StatefulWidget {
-  const Eventos({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
+  Eventos(this.usuario, {Key? key}) : super(key: key);
 
   @override
   _EventosState createState() => _EventosState();
@@ -20,6 +25,8 @@ class Eventos extends StatefulWidget {
 class _EventosState extends State<Eventos> {
   late DateTime _selectedDay;
   late DateTime _focusedDay;
+  String _eventoTexto = '';
+  Map<DateTime, String> _eventosPorDia = {};
 
   @override
   void initState() {
@@ -30,6 +37,9 @@ class _EventosState extends State<Eventos> {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _eventoController = TextEditingController();
+    String tipo = widget.usuario.tipo;
+    String emailUsuario = widget.usuario.email;
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.white, // Color del fondo del Scaffold en blanco
@@ -79,13 +89,7 @@ class _EventosState extends State<Eventos> {
                 ),
               ),
               ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  // Agregar aquí la funcionalidad para el nombre de usuario
-                },
-              ),
-              ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el email
                 },
@@ -101,8 +105,8 @@ class _EventosState extends State<Eventos> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Informacion()),
-                  );
+                    MaterialPageRoute(builder: (context) => Informacion(Usuario as Usuario),
+                  ));
                 },
               ),
               ListTile(
@@ -110,7 +114,7 @@ class _EventosState extends State<Eventos> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
+                    MaterialPageRoute(builder: (context) => Ajustes(Usuario as Usuario)),
                   );
                 },
               ),
@@ -129,6 +133,40 @@ class _EventosState extends State<Eventos> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Botón para agregar evento
+            tipo == 'docente' ? ElevatedButton(
+              onPressed: () {
+              showDialog(
+                   context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                     title: Text('Ingrese el evento'),
+                     content: TextField(
+                     controller: _eventoController,
+              ),
+                      actions: <Widget>[
+                     ElevatedButton(
+                       onPressed: () {
+                       Navigator.of(context).pop();
+                      },
+                      child: Text('Cancelar'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                      setState(() {
+                         _eventoTexto = _eventoController.text;
+                     });
+                       Navigator.of(context).pop();
+                       },
+                      child: Text('Aceptar'),
+                  ),
+                 ],
+                );
+               },
+              );
+             },
+              child: Text('+ Agregar Evento'),
+            ) : Container(),
             // Calendario
             TableCalendar(
               focusedDay: _focusedDay,
@@ -142,6 +180,7 @@ class _EventosState extends State<Eventos> {
                 setState(() {
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
+                  _eventoTexto = _eventosPorDia[selectedDay] ?? '';
                 });
               },
               calendarStyle: CalendarStyle(
@@ -166,7 +205,7 @@ class _EventosState extends State<Eventos> {
               ),
               child: Text(
                 // Formatea la fecha para mostrar solo día, mes y año
-                'Información del día seleccionado: ${DateFormat('dd/MM/yyyy').format(_selectedDay)}',
+                'Información del día seleccionado: ${DateFormat('dd/MM/yyyy').format(_selectedDay)}\nEvento: $_eventoTexto',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,

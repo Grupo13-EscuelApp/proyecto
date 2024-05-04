@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
+import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/usuario_class.dart';
 import '../menu/ajustes_page.dart';
 import '../menu/eventos_page.dart';
 import '../menu/informacion_page.dart';
@@ -9,15 +11,19 @@ class Descanso {
   final String horaFin; // Hora de fin del descanso
   final int duracion; // Duración del descanso en minutos
 
+
   Descanso(this.horaInicio, this.horaFin, this.duracion);
 }
 
 void main() {
-  runApp(const DescansoPadres());
+  Usuario usuario = Usuario("","","");
+  runApp(DescansoPadres(usuario));
 }
 
 class DescansoPadres extends StatelessWidget {
-  const DescansoPadres({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+final Usuario usuario;
+  DescansoPadres(this.usuario,{Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +31,7 @@ class DescansoPadres extends StatelessWidget {
     String nombreAlumno = 'Juan';
     String apellidoAlumno = 'Pérez';
     String fotoUrlAlumno = 'https://via.placeholder.com/150';
+    String emailUsuario = usuario.email;
 
     // Datos simulados de los descansos del alumno
     List<Descanso> descansos = [
@@ -88,13 +95,7 @@ class DescansoPadres extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  // Agregar aquí la funcionalidad para el nombre de usuario
-                },
-              ),
-              ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el email
                 },
@@ -104,7 +105,7 @@ class DescansoPadres extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Eventos()),
+                    MaterialPageRoute(builder: (context) => Eventos(usuario)),
                   );
                 },
               ),
@@ -113,7 +114,7 @@ class DescansoPadres extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Informacion()),
+                    MaterialPageRoute(builder: (context) => Informacion(usuario)),
                   );
                 },
               ),
@@ -122,7 +123,7 @@ class DescansoPadres extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
+                    MaterialPageRoute(builder: (context) => Ajustes(usuario)),
                   );
                 },
               ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:proyecto_inicio/pages/docente/inicio_docente_page.dart';
 import 'package:proyecto_inicio/pages/inicio_alumno_padres_page.dart';
 import 'package:proyecto_inicio/pages/recuperar_page.dart';
 import 'package:proyecto_inicio/pages/BBDD/DatabaseHelper.dart';
 
-import 'BBDD/usuario_class.dart';
+import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
 
 class Login1 extends StatelessWidget {
   final DatabaseHelper databaseHelper = DatabaseHelper();
@@ -102,8 +103,12 @@ class Login1 extends StatelessWidget {
                             String password = passwordController.text;
 
                             if (email.isEmpty || password.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Debes ingresar un correo electrónico y una contraseña.')),
+                              Fluttertoast.showToast(
+                                msg: 'Debes ingresar un correo electrónico y una contraseña.',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
                               );
                               return;
                             }
@@ -111,8 +116,24 @@ class Login1 extends StatelessWidget {
                             // Buscar usuario en la base de datos
                             Usuario? usuario = await databaseHelper.buscarUsuario(email, password);
                             if (usuario == null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Correo electrónico no registrado o contraseña incorrecta.')),
+                              Fluttertoast.showToast(
+                                msg: 'Correo electrónico no registrado o contraseña incorrecta.',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                              );
+                              return;
+                            }
+
+                            // Verificar si la contraseña es correcta
+                            if (usuario.password != password) {
+                              Fluttertoast.showToast(
+                                msg: 'Contraseña incorrecta.',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
                               );
                               return;
                             }
@@ -121,12 +142,12 @@ class Login1 extends StatelessWidget {
                             if (usuario.tipo == "docente") {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => InicioDocente()),
+                                MaterialPageRoute(builder: (context) => InicioDocente(usuario)),
                               );
                             } else if (usuario.tipo == "padre") {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => InicioAlumno()),
+                                MaterialPageRoute(builder: (context) => InicioAlumno(usuario)),
                               );
                             }
                           },

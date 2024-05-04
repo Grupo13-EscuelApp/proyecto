@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
+import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/usuario_class.dart';
 import '../menu/ajustes_page.dart';
 import '../menu/eventos_page.dart';
 import '../menu/informacion_page.dart';
@@ -12,11 +14,14 @@ class Reponer {
 }
 
 void main() {
-  runApp(const ReponerPadres());
+  Usuario usuario = Usuario("","","");
+  runApp(ReponerPadres(usuario));
 }
 
 class ReponerPadres extends StatelessWidget {
-  const ReponerPadres({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
+  ReponerPadres(this.usuario, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +29,7 @@ class ReponerPadres extends StatelessWidget {
     String nombreAlumno = 'Juan';
     String apellidoAlumno = 'Pérez';
     String fotoUrlAlumno = 'https://via.placeholder.com/150';
+    String emailUsuario = usuario.email;
 
     // Datos simulados de las tareas del alumno
     List<Reponer> tareas = [
@@ -33,6 +39,7 @@ class ReponerPadres extends StatelessWidget {
     ];
 
     return MaterialApp(
+
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.white, // Color del fondo del Scaffold en blanco
       ),
@@ -87,13 +94,7 @@ class ReponerPadres extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  // Agregar aquí la funcionalidad para el nombre de usuario
-                },
-              ),
-              ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el email
                 },
@@ -103,7 +104,7 @@ class ReponerPadres extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Eventos()),
+                    MaterialPageRoute(builder: (context) => Eventos(usuario)),
                   );
                 },
               ),
@@ -112,7 +113,7 @@ class ReponerPadres extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Informacion()),
+                    MaterialPageRoute(builder: (context) => Informacion(usuario)),
                   );
                 },
               ),
@@ -121,7 +122,7 @@ class ReponerPadres extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
+                    MaterialPageRoute(builder: (context) => Ajustes(usuario)),
                   );
                 },
               ),

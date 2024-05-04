@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../main.dart';
+import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/usuario_class.dart';
 
 class ChatPadres extends StatefulWidget {
-  const ChatPadres({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
+  ChatPadres(this.usuario, {Key? key}) : super(key: key);
 
   @override
   _ChatPadresState createState() => _ChatPadresState();
@@ -92,6 +96,8 @@ class _ChatPadresState extends State<ChatPadres> {
     String nombreAlumno = 'Juan';
     String apellidoAlumno = 'Pérez';
     String fotoUrlAlumno = 'https://via.placeholder.com/150';
+    String emailUsuario = widget.usuario.email;
+
 
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
@@ -146,13 +152,7 @@ class _ChatPadresState extends State<ChatPadres> {
                 ),
               ),
               ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  // Agregar aquí la funcionalidad para el nombre de usuario
-                },
-              ),
-              ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el email
                 },

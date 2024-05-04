@@ -8,15 +8,22 @@ import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
 import 'package:proyecto_inicio/pages/menu/informacion_page.dart';
 
+import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/usuario_class.dart';
+
 void main() {
-  runApp(const InicioDocente());
+  Usuario usuario = Usuario("","","");
+  runApp(InicioDocente(usuario));
 }
 
 class InicioDocente extends StatelessWidget {
-  const InicioDocente({Key? key}) : super(key: key);
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final Usuario usuario;
+  InicioDocente(this.usuario, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String emailUsuario = usuario.email;
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.white, // Color del fondo del Scaffold en blanco
@@ -41,7 +48,7 @@ class InicioDocente extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddUserDoc()),
+                  MaterialPageRoute(builder: (context) => AddUserDoc(usuario)),
                 );
               },
             ),
@@ -76,13 +83,7 @@ class InicioDocente extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  // Agregar aquí la funcionalidad para el nombre de usuario
-                },
-              ),
-              ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el email
                 },
@@ -92,7 +93,7 @@ class InicioDocente extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Eventos()),
+                    MaterialPageRoute(builder: (context) => Eventos(usuario)),
                   );
                 },
               ),
@@ -101,7 +102,7 @@ class InicioDocente extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Informacion()),
+                    MaterialPageRoute(builder: (context) => Informacion(usuario)),
                   );
                 },
               ),
@@ -110,7 +111,7 @@ class InicioDocente extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Ajustes()),
+                    MaterialPageRoute(builder: (context) => Ajustes(usuario)),
                   );
                 },
               ),
@@ -145,7 +146,7 @@ class InicioDocente extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => P0_Docente()),
+                      MaterialPageRoute(builder: (context) => P0_Docente(usuario)),
                     );
                   },
                   style: ButtonStyle(
@@ -168,7 +169,7 @@ class InicioDocente extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => P1_Docente()),
+                      MaterialPageRoute(builder: (context) => P1_Docente(usuario)),
                     );
                   },
                   style: ButtonStyle(
@@ -191,7 +192,7 @@ class InicioDocente extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => P2_Docente()),
+                      MaterialPageRoute(builder: (context) => P2_Docente(usuario)),
                     );
                   },
                   style: ButtonStyle(
