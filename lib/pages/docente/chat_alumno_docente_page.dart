@@ -45,14 +45,10 @@ class _ChatDocState extends State<ChatDoc> {
         appBar: AppBar(
           title: Text('${widget.nombreAlumno} ${widget.apellidoAlumno}'),
           centerTitle: true,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context); // Retrocede a la página anterior
             },
           ),
           actions: [
@@ -125,10 +121,7 @@ class _ChatDocState extends State<ChatDoc> {
               ListTile(
                 title: const Text('Salir', style: TextStyle(color: Colors.white)),
                 onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyApp()),
-                  );
+                  Navigator.pop(context); // Retrocede a la página anterior
                 },
               ),
             ],

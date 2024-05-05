@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
+import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
+import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
+import 'package:proyecto_inicio/pages/menu/informacion_page.dart';
+import '../../main.dart';
 
-// Clase ficticia para simular los datos de la comida del alumno
+
 class Comida {
   final String tipo; // Tipo de comida (Desayuno, Almuerzo, Cena, etc.)
   String estado; // Estado de la comida (Comido todo, Bastante, Poco, Nada)
@@ -10,12 +14,28 @@ class Comida {
 }
 
 void main() {
-  Usuario usuario = Usuario("","","");
-  runApp(ComidaDocente(usuario));
+  Usuario usuario = Usuario("", "", "");
+  runApp(ComidaDocente(
+    usuario,
+    nombreAlumno: '',
+    apellidoAlumno: '',
+    fotoUrlAlumno: '',
+  ));
 }
 
 class ComidaDocente extends StatefulWidget {
-  const ComidaDocente(Usuario usuario, {Key? key}) : super(key: key);
+  final String nombreAlumno;
+  final String apellidoAlumno;
+  final String fotoUrlAlumno;
+  final Usuario usuario;
+
+  ComidaDocente(
+      this.usuario, {
+        Key? key,
+        required this.nombreAlumno,
+        required this.apellidoAlumno,
+        required this.fotoUrlAlumno,
+      }) : super(key: key);
 
   @override
   _ComidaDocenteState createState() => _ComidaDocenteState();
@@ -33,43 +53,101 @@ class _ComidaDocenteState extends State<ComidaDocente> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.white, // Color del fondo del Scaffold en blanco
+    String emailUsuario = widget.usuario.email;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('${widget.nombreAlumno} ${widget.apellidoAlumno}'),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back), // Usa un icono de flecha hacia atrás en lugar del menú
+          onPressed: () {
+            Navigator.pop(context); // Navega a la página anterior
+          },
+        ),
+        actions: [
+          CircleAvatar(
+            backgroundImage: NetworkImage(widget.fotoUrlAlumno),
+          ),
+        ],
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.brown,
+                Colors.transparent,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Comida del alumno'), // Título de la AppBar
-          centerTitle: true, // Centra el título en la AppBar
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ...comidas.map((comida) {
-                return _buildSection(comida);
-              }).toList(),
-              SizedBox(height: 130), // Separación
-            ],
-          ),
-        ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(bottom: 60),
-          child: ElevatedButton(
-            onPressed: () {
-              // Navegar a la página anterior o a la pantalla de inicio principal del menú de padres
-              Navigator.pop(context);
-            },
-            child: Text(
-              'Atrás',
-              style: TextStyle(color: Colors.white),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.brown,
+              ),
+              child: const Text(
+                'Menú de Usuario',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
             ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red, // Color de fondo
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 150), // Tamaño del botón
+            ListTile(
+              title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
+              onTap: () {
+                // Agregar aquí la funcionalidad para el email
+              },
             ),
-          ),
+            ListTile(
+              title: const Text('Eventos', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Eventos(Usuario as Usuario)), // Pasa el usuario a la página de eventos
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Información', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Informacion(Usuario as Usuario)), // Pasa el usuario a la página de información
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Ajustes', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Ajustes(Usuario as Usuario)), // Pasa el usuario a la página de ajustes
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Salir', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp()),
+                );
+              },
+            ),
+          ],
         ),
+      ),
+      body: ListView.builder(
+        itemCount: comidas.length,
+        itemBuilder: (context, index) {
+          return _buildSection(comidas[index]);
+        },
       ),
     );
   }

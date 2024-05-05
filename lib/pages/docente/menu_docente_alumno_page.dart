@@ -192,7 +192,11 @@ class MenuDocentes extends StatelessWidget {
         } else if(title == 'Alimentación') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ComidaDocente(usuario)),
+            MaterialPageRoute(builder: (context) => ComidaDocente(
+              usuario,
+              nombreAlumno: nombreAlumno,
+              apellidoAlumno: apellidoAlumno,
+              fotoUrlAlumno: fotoUrlAlumno,)),
           );
         } else if( title == 'Descanso') {
           Navigator.push(
