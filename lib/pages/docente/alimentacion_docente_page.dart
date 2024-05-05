@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
 
 // Clase ficticia para simular los datos de la comida del alumno
 class Comida {
@@ -9,11 +10,12 @@ class Comida {
 }
 
 void main() {
-  runApp(const ComidaDocente());
+  Usuario usuario = Usuario("","","");
+  runApp(ComidaDocente(usuario));
 }
 
 class ComidaDocente extends StatefulWidget {
-  const ComidaDocente({Key? key}) : super(key: key);
+  const ComidaDocente(Usuario usuario, {Key? key}) : super(key: key);
 
   @override
   _ComidaDocenteState createState() => _ComidaDocenteState();

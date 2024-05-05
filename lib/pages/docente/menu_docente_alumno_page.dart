@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_inicio/pages/docente/alimentacion_docente_page.dart';
+import 'package:proyecto_inicio/pages/docente/chat_alumno_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/deposicion_docente_page.dart';
+import 'package:proyecto_inicio/pages/docente/descanso_docente_page.dart';
+import 'package:proyecto_inicio/pages/docente/reponer_docente_page.dart';
 import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
-import 'package:proyecto_inicio/pages/padres/alimentacion_padres_page.dart';
-import 'package:proyecto_inicio/pages/padres/chat_padres_page.dart';
-import 'package:proyecto_inicio/pages/padres/deposicion_padres_page.dart';
-import 'package:proyecto_inicio/pages/padres/descanso_padres_page.dart';
-import 'package:proyecto_inicio/pages/padres/reponer_padres_page.dart';
 import '../../main.dart';
 import '../BBDD/DatabaseHelper.dart';
 import '../BBDD/usuario_class.dart';
@@ -193,22 +192,33 @@ class MenuDocentes extends StatelessWidget {
         } else if(title == 'Alimentación') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ComidaPadres(usuario)),
+            MaterialPageRoute(builder: (context) => ComidaDocente(usuario)),
           );
         } else if( title == 'Descanso') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => DescansoPadres(usuario)),
+            MaterialPageRoute(builder: (context) => DescansoDoc(
+              usuario,
+              nombreAlumno: nombreAlumno,
+              apellidoAlumno: apellidoAlumno,
+              fotoUrlAlumno: fotoUrlAlumno,)),
           );
         } else if(title == 'Reponer'){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ReponerPadres(usuario)),
+            MaterialPageRoute(builder: (context) => ReponerDoc(
+                usuario,
+              nombreAlumno: nombreAlumno,
+              apellidoAlumno: apellidoAlumno,
+              fotoUrlAlumno: fotoUrlAlumno,)),
           );
         } else if(title == 'Chat'){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChatPadres(usuario)),
+            MaterialPageRoute(builder: (context) => ChatDoc(usuario,
+              nombreAlumno: nombreAlumno,
+              apellidoAlumno: apellidoAlumno,
+              fotoUrlAlumno: fotoUrlAlumno,)),
           );
         }
       },

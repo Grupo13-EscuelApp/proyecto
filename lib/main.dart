@@ -3,11 +3,14 @@ import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUsuPadre_page.dart';
 import 'package:proyecto_inicio/pages/docente/alimentacion_docente_page.dart';
+import 'package:proyecto_inicio/pages/docente/chat_alumno_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/deposicion_docente_page.dart';
+import 'package:proyecto_inicio/pages/docente/descanso_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/menu_docente_alumno_page.dart';
 import 'package:proyecto_inicio/pages/docente/p0_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/p1_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/p2_docente_page.dart';
+import 'package:proyecto_inicio/pages/docente/reponer_docente_page.dart';
 import 'package:proyecto_inicio/pages/inicio_alumno_padres_page.dart';
 import 'package:proyecto_inicio/pages/inicio_login.dart';
 import 'package:proyecto_inicio/pages/login1_page.dart';
@@ -67,7 +70,21 @@ class MyApp extends StatelessWidget {
 
 
         ),// Ruta para la pagina DepoDoc()
-        '/ComidaDocente': (context) => ComidaDocente(), // Ruta para la página ComidaDocente()
+        '/ComidaDocente': (context) => ComidaDocente(Usuario as Usuario), // Ruta para la página ComidaDocente()
+        '/DescansoDoc': (context) => DescansoDoc(
+          Usuario as Usuario,
+          nombreAlumno: 'Nombre del alumno',
+          apellidoAlumno: 'Apellido del alumno',
+          fotoUrlAlumno: 'https://via.placeholder.com/108x105',), // Ruta para la página DescansoDoc()
+        '/ReponerDoc': (context) => ReponerDoc(Usuario as Usuario,
+          nombreAlumno: 'Nombre del alumno',
+          apellidoAlumno: 'Apellido del alumno',
+          fotoUrlAlumno: 'https://via.placeholder.com/108x105',), //Ruta para la página ReponerDoc()
+        '/ChatDoc': (context) => ChatDoc(Usuario as Usuario,
+          nombreAlumno: 'Nombre del alumno',
+          apellidoAlumno: 'Apellido del alumno',
+          fotoUrlAlumno: 'https://via.placeholder.com/108x105',),//Ruta para la página ChatDoc()
+
       },
 
     );
