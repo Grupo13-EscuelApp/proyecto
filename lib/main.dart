@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUsuPadre_page.dart';
+import 'package:proyecto_inicio/pages/docente/Chat/chat_selec_doc_page.dart';
+import 'package:proyecto_inicio/pages/docente/Chat/chat_selec_grup_page.dart';
 import 'package:proyecto_inicio/pages/docente/alimentacion_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/chat_alumno_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/deposicion_docente_page.dart';
@@ -87,6 +89,9 @@ class MyApp extends StatelessWidget {
           nombreAlumno: 'Nombre del alumno',
           apellidoAlumno: 'Apellido del alumno',
           fotoUrlAlumno: 'https://via.placeholder.com/108x105',),//Ruta para la página ChatDoc()
+        '/SelecChatDoc': (context) => SelecChatDoc(Usuario as Usuario), // Ruta para la página SelecChatDoc()
+        // Ruta para la página SelecChatDoc()
+        '/ChatDocGrupal': (context) => ChatDocGrupal(), // Ruta para la página SelecChatDoc()
 
       },
 

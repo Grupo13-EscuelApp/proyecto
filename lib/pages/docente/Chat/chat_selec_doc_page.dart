@@ -1,37 +1,27 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../BBDD/DatabaseHelper.dart';
-import '../BBDD/usuario_class.dart';
+import 'package:proyecto_inicio/pages/BBDD/DatabaseHelper.dart';
+import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
 
 
-class ChatDoc extends StatefulWidget {
+
+class ChatDocGrupal extends StatefulWidget {
   final DatabaseHelper databaseHelper = DatabaseHelper();
-  final Usuario usuario;
-  final String nombreAlumno;
-  final String apellidoAlumno;
-  final String fotoUrlAlumno;
-
-  ChatDoc(
-      this.usuario, {
-        Key? key,
-        required this.nombreAlumno,
-        required this.apellidoAlumno,
-        required this.fotoUrlAlumno,
-      }) : super(key: key);
 
   @override
-  _ChatDocState createState() => _ChatDocState();
+  _ChatDocGrupalState createState() => _ChatDocGrupalState();
 }
 
-class _ChatDocState extends State<ChatDoc> {
+
+class _ChatDocGrupalState extends State<ChatDocGrupal> {
   TextEditingController _messageController = TextEditingController();
   List<Map<String, dynamic>> mensajes = [];
   File? _imageFile;
 
   @override
   Widget build(BuildContext context) {
-    String emailUsuario = widget.usuario.email;
+
 
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
@@ -39,19 +29,14 @@ class _ChatDocState extends State<ChatDoc> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('${widget.nombreAlumno} ${widget.apellidoAlumno}'),
-          centerTitle: true,
+
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context); // Retrocede a la página anterior
             },
           ),
-          actions: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(widget.fotoUrlAlumno),
-            ),
-          ],
+
           flexibleSpace: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(

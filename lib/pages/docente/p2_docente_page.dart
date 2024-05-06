@@ -37,8 +37,9 @@ class P2_Docente extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => InicioDocente(Usuario as Usuario)),
+                    MaterialPageRoute(builder: (context) => InicioDocente(usuario)),
                   );
+
                 },
               );
             },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_inicio/pages/a%C3%B1adir/addUserDoc_page.dart';
+import 'package:proyecto_inicio/pages/docente/Chat/chat_selec_grup_page.dart';
 import 'package:proyecto_inicio/pages/docente/p0_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/p1_docente_page.dart';
 import 'package:proyecto_inicio/pages/docente/p2_docente_page.dart';
@@ -95,6 +96,7 @@ class InicioDocente extends StatelessWidget {
                     context,
                     MaterialPageRoute(builder: (context) => Eventos(usuario)),
                   );
+
                 },
               ),
               ListTile(
@@ -211,22 +213,38 @@ class InicioDocente extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 200), // Espacio desde la parte inferior
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SelecChatDoc(usuario)),
+                    );
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.green), // Cambia el color de fondo del botón a verde
+                  ),
+                  child: SizedBox(
+                    width: double.infinity, // Utiliza el ancho máximo disponible
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.chat, color: Colors.white), // Icono de chat
+                        SizedBox(width: 8), // Espacio entre el icono y el texto
+                        Text(
+                          'Ir a Chat', // Texto del botón
+                          style: TextStyle(
+                            color: Colors.white, // Cambia el color del texto a blanco
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
               ],
             ),
           ),
         ),
-        floatingActionButton: Container(
-          width: 300, // Ancho del botón de chat
-          child: FloatingActionButton.extended(
-            onPressed: () {
-              // Acción para el botón de chat
-            },
-            backgroundColor: Colors.green,
-            icon: Icon(Icons.chat),
-            label: Text('Chat'),
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
