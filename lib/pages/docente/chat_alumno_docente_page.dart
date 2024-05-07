@@ -39,6 +39,7 @@ class _ChatDocState extends State<ChatDoc> {
       ),
       home: Scaffold(
         appBar: AppBar(
+
           title: Text('${widget.nombreAlumno} ${widget.apellidoAlumno}'),
           centerTitle: true,
           leading: IconButton(

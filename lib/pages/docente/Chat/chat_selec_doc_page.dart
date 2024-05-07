@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:proyecto_inicio/pages/BBDD/DatabaseHelper.dart';
-import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
+
 
 
 

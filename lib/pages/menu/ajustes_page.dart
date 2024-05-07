@@ -44,6 +44,7 @@ class _AjustesPageState extends State<AjustesPage> {
 
   @override
   Widget build(BuildContext context) {
+    String emailUsuario = widget.usuario.email;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Ajustes'),
@@ -95,7 +96,7 @@ class _AjustesPageState extends State<AjustesPage> {
               },
             ),
             ListTile(
-              title: const Text('Email', style: TextStyle(color: Colors.white)),
+              title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
               onTap: () {
                 // Agregar aquí la funcionalidad para el email
               },

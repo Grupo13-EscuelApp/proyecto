@@ -7,7 +7,7 @@ import 'ajustes_page.dart';
 import 'eventos_page.dart';
 
 void main() {
-  Usuario usuario = Usuario("","","");
+  Usuario usuario = Usuario("", "", "");
   runApp(Informacion(usuario));
 }
 
@@ -18,6 +18,7 @@ class Informacion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String emailUsuario = usuario.email;
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.white, // Color del fondo del Scaffold en blanco
@@ -75,7 +76,7 @@ class Informacion extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: const Text('Email', style: TextStyle(color: Colors.white)),
+                title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el email
                 },
@@ -83,7 +84,6 @@ class Informacion extends StatelessWidget {
               ListTile(
                 title: const Text('Eventos', style: TextStyle(color: Colors.white)),
                 onTap: () {
-
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Eventos(usuario)),
@@ -108,15 +108,15 @@ class Informacion extends StatelessWidget {
                   );
                 },
               ),
-        ListTile(
-          title: const Text('Salir', style: TextStyle(color: Colors.white)),
-          onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => MyApp()),
-            );
-          },
-        ),
+              ListTile(
+                title: const Text('Salir', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyApp()),
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -151,7 +151,7 @@ class Rectangle6 extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Text(
             'Nombre del centro',
             textAlign: TextAlign.center,

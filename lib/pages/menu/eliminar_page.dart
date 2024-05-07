@@ -19,56 +19,59 @@ class Eliminar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.white,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Eliminar Usuario'),
-          centerTitle: true,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            },
-          ),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [
-                  Colors.brown,
-                  Colors.transparent,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
+    String emailUsuario = usuario.email;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Ajustes'),
+        centerTitle: true,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [
+                Colors.brown,
+                Colors.transparent,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
           ),
         ),
-        drawer: Drawer(
-          // Contenido del menú deslizable
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.brown, // Color de fondo marrón
-                ),
-                child: const Text(
-                  'Menú de Usuario',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.brown,
+              ),
+              child: const Text(
+                'Menú de Usuario',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
                 ),
               ),
-              ListTile(
-                title: const Text('Nombre de usuario', style: TextStyle(color: Colors.white)),
+            ),
+            ListTile(
+              title: const Text('Nombre de usuario',
+                  style: TextStyle(color: Colors.white)),
+              onTap: () {
+                // Agregar aquí la funcionalidad para el nombre de usuario
+              },
+            ),
+            ListTile(
+              title: Text(emailUsuario, style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Agregar aquí la funcionalidad para el nombre de usuario
                 },
@@ -174,7 +177,7 @@ class Eliminar extends StatelessWidget {
             ),
           ],
         ),
-      ),
+
     );
   }
 }
