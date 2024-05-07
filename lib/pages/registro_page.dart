@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:proyecto_inicio/pages/BBDD/DatabaseHelper.dart';
 
+import 'package:proyecto_inicio/pages/BBDD/DatabaseService_page.dart';
 import '../main.dart';
 
 class Registro extends StatelessWidget {
-  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final DatabaseService databaseService = SembastDatabaseService(); // Usa la interfaz DatabaseService
 
   Registro({Key? key}) : super(key: key);
 
@@ -111,7 +111,7 @@ class Registro extends StatelessWidget {
                         return;
                       }
 
-                      int insertedId = await databaseHelper.insertRegistro({
+                      int insertedId = await databaseService.insertRegistro({
                         'email': email,
                         'pass': password,
                         'codigo': tipo,

@@ -1,20 +1,22 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:proyecto_inicio/pages/docente/inicio_docente_page.dart';
 import '../../main.dart';
-import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/DatabaseAlumnos.dart';
 import '../BBDD/usuario_class.dart';
 import '../menu/ajustes_page.dart';
 import '../menu/eventos_page.dart';
 import '../menu/informacion_page.dart';
 
 void main() {
-  Usuario usuario = Usuario("","","");
+  Usuario usuario = Usuario("", "", "");
   runApp(AddUserDoc(usuario));
 }
 
 class AddUserDoc extends StatefulWidget {
-  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final DatabaseAlumnos databaseAlumnos = DatabaseAlumnos();
   final Usuario usuario;
   AddUserDoc(this.usuario, {Key? key}) : super(key: key);
 
@@ -25,6 +27,10 @@ class AddUserDoc extends StatefulWidget {
 class _AddUserDocState extends State<AddUserDoc> {
   String? _selectedCourse;
   File? _image;
+  final TextEditingController _nombreController = TextEditingController();
+  final TextEditingController _apellidosController = TextEditingController();
+  final TextEditingController _emailPadreController = TextEditingController();
+  final TextEditingController _emailMadreController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +91,7 @@ class _AddUserDocState extends State<AddUserDoc> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Eventos(Usuario as Usuario)),
+                    MaterialPageRoute(builder: (context) => Eventos(widget.usuario)),
                   );
                 },
               ),
@@ -94,7 +100,7 @@ class _AddUserDocState extends State<AddUserDoc> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Informacion(Usuario as Usuario)),
+                    MaterialPageRoute(builder: (context) => Informacion(widget.usuario)),
                   );
                 },
               ),
@@ -103,7 +109,7 @@ class _AddUserDocState extends State<AddUserDoc> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Ajustes(Usuario as Usuario)),
+                    MaterialPageRoute(builder: (context) => Ajustes(widget.usuario)),
                   );
                 },
               ),
@@ -119,10 +125,11 @@ class _AddUserDocState extends State<AddUserDoc> {
             ],
           ),
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: Container(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              Container(
                 margin: EdgeInsets.all(20.0),
                 padding: EdgeInsets.all(20.0),
                 decoration: BoxDecoration(
@@ -141,23 +148,27 @@ class _AddUserDocState extends State<AddUserDoc> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     TextField(
+                      controller: _nombreController,
                       decoration: InputDecoration(
                         labelText: 'Nombre',
                       ),
                     ),
                     TextField(
+                      controller: _apellidosController,
                       decoration: InputDecoration(
                         labelText: 'Apellidos',
                       ),
                     ),
                     TextField(
+                      controller: _emailPadreController,
                       decoration: InputDecoration(
-                        labelText: 'Nombre de Padre',
+                        labelText: 'Email del Padre',
                       ),
                     ),
                     TextField(
+                      controller: _emailMadreController,
                       decoration: InputDecoration(
-                        labelText: 'Nombre de Madre',
+                        labelText: 'Email de Madre',
                       ),
                     ),
                     DropdownButton<String>(
@@ -186,16 +197,60 @@ class _AddUserDocState extends State<AddUserDoc> {
                         margin: EdgeInsets.symmetric(vertical: 20),
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey), // Añade un borde para indicar que es un área interactiva
+                          border: Border.all(color: Colors.grey),
                         ),
                         child: _image == null
-                            ? Icon(Icons.add_a_photo) // Muestra un icono si no hay ninguna imagen seleccionada
-                            : Image.file(_image!), // Muestra la imagen seleccionada si la hay
+                            ? Icon(Icons.add_a_photo)
+                            : Image.file(_image!),
                       ),
                     ),
                     SizedBox(height: 80),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        // Verificar que se haya seleccionado una imagen
+                        if (_image == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Por favor selecciona una imagen.')),
+                          );
+                          return;
+                        }
+
+                        // Verificar que se hayan ingresado todos los campos
+                        if (_selectedCourse == null ||
+                            _nombreController.text.isEmpty ||
+                            _apellidosController.text.isEmpty ||
+                            _emailPadreController.text.isEmpty ||
+                            _emailMadreController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Por favor completa todos los campos.')),
+                          );
+                          return;
+                        }
+
+                        // Guardar la imagen en el dispositivo
+                        final String imagePath = await _saveImageToDevice(_image!);
+
+                        // Guardar los datos del alumno en la base de datos
+                        await widget.databaseAlumnos.insertAlumno({
+                          DatabaseAlumnos.colNombre: _nombreController.text,
+                          DatabaseAlumnos.colApellidos: _apellidosController.text,
+                          DatabaseAlumnos.colEmailPadre: _emailPadreController.text,
+                          DatabaseAlumnos.colEmailMadre: _emailMadreController.text,
+                          DatabaseAlumnos.colCurso: _selectedCourse!,
+                          DatabaseAlumnos.colFoto: imagePath,
+                        });
+
+                        // Mostrar un mensaje de éxito
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Alumno añadido correctamente.')),
+                        );
+
+                        // Navegar a la ventana InicioDocente
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => InicioDocente(widget.usuario)),
+                        );
+                      },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
                         foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -209,11 +264,12 @@ class _AddUserDocState extends State<AddUserDoc> {
                         style: TextStyle(fontSize: 16.0),
                       ),
                     ),
+
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -230,5 +286,12 @@ class _AddUserDocState extends State<AddUserDoc> {
         print('No se seleccionó ninguna imagen.');
       }
     });
+  }
+
+  Future<String> _saveImageToDevice(File imageFile) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final imagePath = '${directory.path}/imagen_${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final File newImage = await imageFile.copy(imagePath);
+    return imagePath;
   }
 }

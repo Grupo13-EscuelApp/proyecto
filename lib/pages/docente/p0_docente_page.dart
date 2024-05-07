@@ -7,50 +7,58 @@ import 'package:proyecto_inicio/pages/menu/ajustes_page.dart';
 import 'package:proyecto_inicio/pages/menu/eventos_page.dart';
 import 'package:proyecto_inicio/pages/menu/informacion_page.dart';
 import '../../main.dart';
-import '../BBDD/DatabaseHelper.dart';
+import '../BBDD/DatabaseAlumnos.dart';
 
 void main() {
-  Usuario usuario = Usuario("","","");
+  Usuario usuario = Usuario("", "", "");
   runApp(P0_Docente(usuario));
 }
 
-class P0_Docente extends StatelessWidget {
-  final DatabaseHelper databaseHelper = DatabaseHelper();
+class P0_Docente extends StatefulWidget {
   final Usuario usuario;
-  P0_Docente(this.usuario,{Key? key}) : super(key: key);
+  P0_Docente(this.usuario, {Key? key}) : super(key: key);
+
+  @override
+  _P0_DocenteState createState() => _P0_DocenteState();
+}
+
+class _P0_DocenteState extends State<P0_Docente> {
+  final DatabaseAlumnos databaseAlumnos = DatabaseAlumnos();
+  late Future<List<Map<String, dynamic>>> _alumnosFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _alumnosFuture = databaseAlumnos.getAlumnosByCurso('P0'); // Obtener alumnos del curso P0
+  }
 
   @override
   Widget build(BuildContext context) {
-    String emailUsuario = usuario.email;
+    String emailUsuario = widget.usuario.email;
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.white, // Color del fondo del Scaffold en blanco
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Curso P0'),
-          centerTitle: true, // Centra el título en la AppBar
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.red), // Botón de flecha hacia atrás en rojo
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => InicioDocente(usuario)),
-                  );
-
-                },
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.red),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => InicioDocente(widget.usuario)),
               );
             },
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.add), // Icono de agregar usuario
+              icon: const Icon(Icons.add),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddUserDoc(usuario)),
+                  MaterialPageRoute(builder: (context) => AddUserDoc(widget.usuario)),
                 );
               },
             ),
@@ -59,8 +67,8 @@ class P0_Docente extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [
-                  Colors.brown, // Color marrón
-                  Colors.transparent, // Color transparente
+                  Colors.brown,
+                  Colors.transparent,
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -69,13 +77,12 @@ class P0_Docente extends StatelessWidget {
           ),
         ),
         drawer: Drawer(
-          // Contenido del menú deslizable
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
               DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Colors.brown, // Color de fondo marrón
+                  color: Colors.brown,
                 ),
                 child: const Text(
                   'Menú de Usuario',
@@ -102,7 +109,7 @@ class P0_Docente extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Eventos(usuario)),
+                    MaterialPageRoute(builder: (context) => Eventos(widget.usuario)),
                   );
                 },
               ),
@@ -111,7 +118,7 @@ class P0_Docente extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Informacion(usuario)),
+                    MaterialPageRoute(builder: (context) => Informacion(widget.usuario)),
                   );
                 },
               ),
@@ -120,7 +127,7 @@ class P0_Docente extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Ajustes(usuario)),
+                    MaterialPageRoute(builder: (context) => Ajustes(widget.usuario)),
                   );
                 },
               ),
@@ -136,97 +143,53 @@ class P0_Docente extends StatelessWidget {
             ],
           ),
         ),
-        body: Center(
-          // Centra el ListView horizontalmente
-          child: Container(
-            height: 289,
-            child: ListView(
-              scrollDirection: Axis.horizontal, // Desplazamiento horizontal
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MenuDocentes(
-                        nombreAlumno: 'Alumno 1',
-                        apellidoAlumno: 'Apellido 1',
-                        fotoUrlAlumno: 'https://via.placeholder.com/108x105',
-                        usuario: usuario,
-                      )),
-                    );
-                  },
-                  child: Alumno(
-                    nombre: 'Alumno 1',
-                    apellido: 'Apellido 1',
-                    clase: 'P0',
-                    fotoUrl: 'https://via.placeholder.com/108x105',
-                    usuario: usuario,
+        body: FutureBuilder<List<Map<String, dynamic>>>(
+          future: _alumnosFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Center(child: Text('No hay alumnos en este curso.'));
+            } else {
+              return Center(
+                child: Container(
+                  height: 289,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      Map<String, dynamic> alumnoData = snapshot.data![index];
+                      return GestureDetector(
+                        onTap: () {
+                          // Navegar a la página del menú del alumno con los datos obtenidos
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MenuDocentes(
+                                nombreAlumno: alumnoData['nombre'],
+                                apellidoAlumno: alumnoData['apellido'],
+                                fotoUrlAlumno: alumnoData['fotoUrl'],
+                                usuario: widget.usuario,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Alumno(
+                          nombre: alumnoData['nombre'],
+                          apellido: alumnoData['apellido'],
+                          clase: alumnoData['curso'],
+                          fotoUrl: alumnoData['fotoUrl'],
+                          usuario: widget.usuario,
+                        ),
+                      );
+                    },
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MenuDocentes(
-                        nombreAlumno: 'Alumno 2',
-                        apellidoAlumno: 'Apellido 2',
-                        fotoUrlAlumno: 'https://via.placeholder.com/108x105',
-                        usuario: usuario,
-                      )),
-                    );
-                  },
-                  child: Alumno(
-                    nombre: 'Alumno 2',
-                    apellido: 'Apellido 2',
-                    clase: 'P0',
-                    fotoUrl: 'https://via.placeholder.com/108x105',
-                    usuario: usuario,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MenuDocentes(
-                        nombreAlumno: 'Alumno 3',
-                        apellidoAlumno: 'Apellido 3',
-                        fotoUrlAlumno: 'https://via.placeholder.com/108x105',
-                        usuario: usuario,
-                      )),
-                    );
-                  },
-                  child: Alumno(
-                    nombre: 'Alumno 3',
-                    apellido: 'Apellido 3',
-                    clase: 'P0',
-                    fotoUrl: 'https://via.placeholder.com/108x105',
-                    usuario: usuario,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MenuDocentes(
-                        nombreAlumno: 'Alumno 4',
-                        apellidoAlumno: 'Apellido 4',
-                        fotoUrlAlumno: 'https://via.placeholder.com/108x105',
-                        usuario: usuario,
-                      )),
-                    );
-                  },
-                  child: Alumno(
-                    nombre: 'Alumno 4',
-                    apellido: 'Apellido 4',
-                    clase: 'P0',
-                    fotoUrl: 'https://via.placeholder.com/108x105',
-                    usuario: usuario,
-                  ),
-                ),
-
-              ],
-            ),
-          ),
+              );
+            }
+          },
         ),
       ),
     );
@@ -268,7 +231,6 @@ class Alumno extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Center(
-                  // Centra el contenido verticalmente
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -313,14 +275,17 @@ class Alumno extends StatelessWidget {
               top: 0,
               child: GestureDetector(
                 onTap: () {
+                  // Navegar a la página del menú del alumno con los datos obtenidos
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MenuDocentes(
-                      nombreAlumno: nombre,
-                      apellidoAlumno: apellido,
-                      fotoUrlAlumno: fotoUrl,
-                      usuario: usuario,
-                    )),
+                    MaterialPageRoute(
+                      builder: (context) => MenuDocentes(
+                        nombreAlumno: nombre,
+                        apellidoAlumno: apellido,
+                        fotoUrlAlumno: fotoUrl,
+                        usuario: usuario,
+                      ),
+                    ),
                   );
                 },
                 child: Container(

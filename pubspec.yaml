@@ -10,15 +10,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  sembast: ^3.7.1
   cupertino_icons: ^1.0.6
   table_calendar: ^3.0.0
-
   flutter_localizations:
     sdk: flutter
   image_picker: ^0.8.4+4
   font_awesome_flutter: ^10.7.0 # Agregar font_awesome_flutter
   sqflite: ^2.0.0 # Agrega la dependencia de sqflite para manejar SQLite en Flutter
   fluttertoast: ^8.0.8
+  path_provider: ^2.0.1  # Agregado
 
 dev_dependencies:
   flutter_test:

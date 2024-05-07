@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:proyecto_inicio/pages/BBDD/DatabaseHelper.dart';
 import 'package:proyecto_inicio/pages/docente/inicio_docente_page.dart';
 import 'package:proyecto_inicio/pages/inicio_alumno_padres_page.dart';
 import 'package:proyecto_inicio/pages/recuperar_page.dart';
-import 'package:proyecto_inicio/pages/BBDD/DatabaseHelper.dart';
-
 import 'package:proyecto_inicio/pages/BBDD/usuario_class.dart';
 
 class Login1 extends StatelessWidget {
-  final DatabaseHelper databaseHelper = DatabaseHelper();
+  final DatabaseHelper databaseHelper = DatabaseHelper(); // Usa DatabaseHelper en lugar de DatabaseService
 
   Login1({Key? key}) : super(key: key);
 
