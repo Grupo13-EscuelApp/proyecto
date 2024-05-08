@@ -42,8 +42,9 @@ class DatabaseAlumnos {
 
   Future<int> insertAlumno(Map<String, dynamic> alumno) async {
     final Database db = await database;
-    return await db.insert(alumnosTable, alumno);
+    return await db.insert(alumnosTable, alumno); // Asegúrate de que este método devuelva el ID
   }
+
 
   Future<List<Map<String, dynamic>>> getAllAlumnos() async {
     final Database db = await database;
